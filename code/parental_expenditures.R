@@ -6,6 +6,11 @@
 #                based on Mauldin, Mimura and Lino (2001)
 # ============================================================================
 
+
+# Set Parameters ----------------------------------------------------------
+CES.refresh <- F # TRUE if downloading CES data
+CES.saved   <- T # TRUE if loading saved CES objects
+
 # Libraries and Options ---------------------------------------------------
 source("functions.R")
 
