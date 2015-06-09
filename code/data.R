@@ -2,21 +2,8 @@
 # Name        : data.R
 # Author      : Jason D. Miller
 # Copyright   : (c) 2015, Please give a citation if you use this code
-# Description : Data for parental_expenditures.R... or, more precisely, ALL
-#                ACS public microdata
+# Description : Data for parental_expenditures.R
 # ============================================================================
-
-
-# ACS ---------------------------------------------------------------------
-# NOTE: You'll need to install MonetDB (which is free) to run this script
-#       https://www.monetdb.org/downloads/Windows/Oct2014-SP3/
-single.year.datasets.to.download <- 2005:2013
-three.year.datasets.to.download  <- 2007:2013
-five.year.datasets.to.download   <- 2009:2013
-
-# url <- "https://raw.github.com/ajdamico/usgsd/master/American%20Community%20Survey/download%20all%20microdata.R"
-# source_url(url , prompt = FALSE , echo = TRUE )
-
 
 # Consumer Expenditure Survey ---------------------------------------------
 years.to.download <- 2014:1996
@@ -118,3 +105,28 @@ for ( year in years.to.download ){
 
 # print a reminder: set the directory you just saved everything to as read-only!
 message( paste( "all done.  you should set" , getwd() , "read-only so you don't accidentally alter these files." ) )
+folders <- dir()
+for (i in 1:length(dir)){
+  setwd(folders[i])
+  filenames  <- list.files("diary", pattern="*.rda", full.names=T)
+  for(i in 1:length(filenames)){load(filenames[i])}
+  filenames  <- list.files("expn", pattern="*.rda", full.names=T)
+  for(i in 1:length(filenames)){load(filenames[i])}
+  filenames  <- list.files("intrvw", pattern="*.rda", full.names=T)
+  for(i in 1:length(filenames)){load(filenames[i])}
+  setwd("..")
+}
+
+# ACS ---------------------------------------------------------------------
+# NOTE: This is supplementary, in case we wish to expand the scope of the
+#       original analysis
+# NOTE: You'll need to install MonetDB (which is free) to run this script
+#       https://www.monetdb.org/downloads/Windows/Oct2014-SP3/
+if(ACS){
+  single.year.datasets.to.download <- 2005:2013
+  three.year.datasets.to.download  <- 2007:2013
+  five.year.datasets.to.download   <- 2009:2013
+  
+  url <- "https://raw.github.com/ajdamico/usgsd/master/American%20Community%20Survey/download%20all%20microdata.R"
+  source_url(url , prompt = FALSE , echo = TRUE )
+}

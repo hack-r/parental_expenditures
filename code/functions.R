@@ -17,8 +17,10 @@ install.packages("sqlsurvey",
 require(sqlsurvey)
 
 # Options -----------------------------------------------------------------
-options("scipen"=100, "digits"=4, "monetdb.sequential" = T)
 setwd("..//data")
-rda <- TRUE
-dta <- FALSE
-csv <- FALSE
+options("scipen"=100, "digits"=4, "monetdb.sequential" = T)
+
+ACS <- T     #Include supplementary ACS data?
+rda <- TRUE  #Use rda/rds files
+dta <- FALSE #Use dta files
+csv <- FALSE #Use CSV files
