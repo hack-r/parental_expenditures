@@ -7,9 +7,10 @@
 
 # Libraries ---------------------------------------------------------------
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(car, caret, descr, devtools, doParallel, downloader, mhurdle, 
-               MonetDB.R, RDSTK, reshape, R.utils, sqldf, sas7bdat, SAScii)
+pacman::p_load(car, caret, descr, devtools, doParallel, downloader, foreign,
+               mhurdle, MonetDB.R, RDSTK, reshape, R.utils, sqldf, sas7bdat, SAScii)
 
+install_github("mikeasilva/blsAPI")
 install.packages("sqlsurvey", 
                  repos = c( "http://cran.r-project.org", 
                             "http://R-Forge.R-project.org" ) , dep=TRUE )
@@ -17,3 +18,7 @@ require(sqlsurvey)
 
 # Options -----------------------------------------------------------------
 options("scipen"=100, "digits"=4, "monetdb.sequential" = T)
+setwd("..//data")
+rda <- TRUE
+dta <- FALSE
+csv <- FALSE
