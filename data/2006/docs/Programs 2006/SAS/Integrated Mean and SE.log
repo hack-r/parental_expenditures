@@ -1,0 +1,770 @@
+1238    /***************************************************************************/
+
+1239    /* PROGRAM NAME:  CEX INTEGRATED SURVEYS SAMPLE PROGRAM (SAS)              */
+
+1240    /* FUNCTION: CREATE AN INTEGRATED SURVEY EXPENDITURE TABLE BY INCOME CLASS */
+
+1241    /*           USING MICRODATA FROM THE BUREAU OF LABOR STATISTICS' CONSUMER */
+
+1242    /*           EXPENDITURE SURVEY.                                           */
+
+1243    /*                                                                         */
+
+1244    /* WRITTEN BY: BUREAU OF LABOR STATISTICS         APRIL 7 2003             */
+
+1245    /*             CONSUMER EXPENDITURE SURVEY                                 */
+
+1246    /* MODIFICATIONS:                                                          */
+
+1247    /* DATE-      MODIFIED BY-        REASON-                                  */
+
+1248    /* -----      ------------        -------                                  */
+
+1249    /*                                                                         */
+
+1250    /*                                                                         */
+
+1251    /*                                                                         */
+
+1252    /*  NOTE:  FOR SAS VERSION 8 OR HIGHER                                     */
+
+1253    /*                                                                         */
+
+1254    /***************************************************************************/
+
+1255
+1256
+1257  /*Enter Data Year*/
+1258  %LET YEAR = XXXX;
+1259  /*Enter location of the unzipped microdata file*/
+1260  /*Be sure to keep the same file structure as on the CD*/
+1261  %LET DRIVE = XXXXSASCD;
+1262
+1263
+1264    /***************************************************************************/
+
+1265    /* STEP1: READ IN THE STUB PARAMETER FILE AND CREATE FORMATS               */
+
+1266    /* ----------------------------------------------------------------------- */
+
+1267    /* 1 CONVERTS THE STUB PARAMETER FILE INTO A LABEL FILE FOR OUTPUT         */
+
+1268    /* 2 CONVERTS THE STUB PARAMETER FILE INTO AN EXPENDITURE AGGREGATION FILE */
+
+1269    /* 3 CREATES FORMATS FOR USE IN OTHER PROCEDURES                           */
+
+1270    /***************************************************************************/
+
+1271
+1272
+1273  %LET YR1 = %SUBSTR(&YEAR, 3, 2);
+1274  %LET YR2 = %SUBSTR(%EVAL(&YEAR + 1), 3, 2);
+1275  LIBNAME I&YR1 "&DRIVE.\INTRVW&YR1";
+NOTE: Libref I06 was successfully assigned as follows:
+      Engine:        V8
+      Physical Name: \\ceis1\ods\UnitTest\Pubs\MicrodataTransfer\2006SASCD\INTRVW06
+1276  LIBNAME D&YR1 "&DRIVE.\DIARY&YR1";
+NOTE: Libref D06 was successfully assigned as follows:
+      Engine:        V8
+      Physical Name: \\ceis1\ods\UnitTest\Pubs\MicrodataTransfer\2006SASCD\DIARY06
+1277
+1278
+1279  DATA STUBFILE (KEEP= COUNT TYPE LEVEL TITLE UCC SURVEY GROUP LINE);
+1280    INFILE "P:\Phase 4 Production (BIA)\Microdata\2006 Processing\Sample Programs\INTSTUB&YEAR..TXT"
+
+1281    PAD MISSOVER;
+1282    INPUT @1 TYPE $1. @ 4 LEVEL $1. @7 TITLE $60. @70 UCC $6.
+1283          @80 SURVEY $1. @86 GROUP $7.;
+1284    IF (TYPE = '1');
+1285    IF GROUP IN ('CUCHARS' 'FOOD' 'EXPEND' 'INCOME');
+1286    IF SURVEY = 'T' THEN DELETE;
+1287
+1288      RETAIN COUNT 9999;
+1289      COUNT + 1;
+1290      LINE = PUT(COUNT, $5.)||LEVEL;
+WARNING: Variable COUNT has already been defined as numeric.
+1291      /* READS IN THE STUB PARAMETER FILE AND CREATES LINE NUMBERS FOR UCCS */
+
+1292      /* A UNIQUE LINE NUMBER IS ASSIGNED TO EACH EXPENDITURE LINE ITEM     */
+
+1293  RUN;
+
+NOTE: The infile "P:\Phase 4 Production (BIA)\Microdata\2006 Processing\Sample Programs\INTSTUB2006.TXT" is:
+      File Name=P:\Phase 4 Production (BIA)\Microdata\2006 Processing\Sample Programs\INTSTUB2006.TXT,
+      RECFM=V,LRECL=256
+
+NOTE: 1657 records were read from the infile "P:\Phase 4 Production (BIA)\Microdata\2006 Processing\Sample Programs\INTSTUB2006.TXT".
+      The minimum record length was 102.
+      The maximum record length was 105.
+NOTE: The data set WORK.STUBFILE has 929 observations and 8 variables.
+NOTE: DATA statement used:
+      real time           0.14 seconds
+      cpu time            0.03 seconds
+
+
+1294
+1295
+1296  DATA AGGFMT1 (KEEP= UCC LINE LINE1-LINE10);
+1297    SET STUBFILE;
+1298    LENGTH LINE1-LINE10 $6.;
+1299      ARRAY LINES(9) LINE1-LINE9;
+1300        IF (UCC > 'A') THEN
+1301          LINES(SUBSTR(LINE,6,1)) = LINE;
+1302        RETAIN LINE1-LINE9;
+1303        IF (UCC < 'A')  THEN
+1304          LINE10 = LINE;
+1305    IF (LINE10);
+1306    /* MAPS LINE NUMBERS TO UCCS */
+1307  RUN;
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      1301:15   1305:7
+NOTE: There were 929 observations read from the data set WORK.STUBFILE.
+NOTE: The data set WORK.AGGFMT1 has 748 observations and 12 variables.
+NOTE: DATA statement used:
+      real time           0.10 seconds
+      cpu time            0.01 seconds
+
+
+1308
+1309
+1310  PROC SORT DATA= AGGFMT1 (RENAME=(LINE= COMPARE));
+1311    BY UCC;
+1312  RUN;
+
+NOTE: There were 748 observations read from the data set WORK.AGGFMT1.
+NOTE: The data set WORK.AGGFMT1 has 748 observations and 12 variables.
+NOTE: PROCEDURE SORT used:
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+
+
+1313
+1314
+1315  PROC TRANSPOSE DATA= AGGFMT1 OUT= AGGFMT2 (RENAME=(COL1= LINE));
+1316    BY UCC COMPARE;
+1317    VAR LINE1-LINE10;
+1318  RUN;
+
+NOTE: There were 748 observations read from the data set WORK.AGGFMT1.
+NOTE: The data set WORK.AGGFMT2 has 7480 observations and 4 variables.
+NOTE: PROCEDURE TRANSPOSE used:
+      real time           0.12 seconds
+      cpu time            0.04 seconds
+
+
+1319
+1320
+1321  DATA AGGFMT (KEEP= UCC LINE);
+1322    SET AGGFMT2;
+1323      IF LINE;
+1324      IF SUBSTR(COMPARE,6,1) > SUBSTR(LINE,6,1) OR COMPARE=LINE;
+1325      /* AGGREGATION FILE. EXTRANEOUS MAPPINGS ARE DELETED */
+1326      /* PROC SQL WILL AGGANGE LINE#/UCC PAIRS FOR USE IN PROC FORMAT */
+1327  RUN;
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      1323:8
+NOTE: There were 7480 observations read from the data set WORK.AGGFMT2.
+NOTE: The data set WORK.AGGFMT has 3717 observations and 2 variables.
+NOTE: DATA statement used:
+      real time           0.07 seconds
+      cpu time            0.03 seconds
+
+
+1328
+1329
+1330  PROC SQL NOPRINT;
+1331    SELECT UCC, LINE, COUNT(*)
+1332    INTO  :UCCS SEPARATED BY " ",
+1333          :LINES SEPARATED BY " ",
+1334          :CNT
+1335    FROM AGGFMT;
+NOTE: The query requires remerging summary statistics back with the original data.
+1336    QUIT;
+NOTE: PROCEDURE SQL used:
+      real time           0.20 seconds
+      cpu time            0.01 seconds
+
+
+1337  RUN;
+1338
+1339
+1340  %MACRO MAPPING;
+1341    %DO  i = 1  %TO  &CNT;
+1342      "%SCAN(&UCCS,&i,%STR( ))" = "%SCAN(&LINES,&i,%STR( ))"
+1343    %END;
+1344  %MEND MAPPING;
+1345
+1346
+1347  DATA LBLFMT (RENAME=(LINE= START TITLE= LABEL));
+1348    SET STUBFILE (KEEP= LINE TITLE);
+1349    RETAIN FMTNAME 'LBLFMT' TYPE 'C';
+1350    /* LABEL FILE. LINE NUMBERS ARE ASSIGNED A TEXT LABEL */
+1351    /* DATASET CONSTRUCTED TO BE READ INTO A PROC FORMAT  */
+1352  RUN;
+
+NOTE: There were 929 observations read from the data set WORK.STUBFILE.
+NOTE: The data set WORK.LBLFMT has 929 observations and 4 variables.
+NOTE: DATA statement used:
+      real time           0.09 seconds
+      cpu time            0.01 seconds
+
+
+1353
+1354
+1355  PROC FORMAT;
+1356
+1357    VALUE $AGGFMT (MULTILABEL)
+1358      %MAPPING
+1359      OTHER= 'OTHER'
+1360      ;
+NOTE: Format $AGGFMT is already on the library.
+NOTE: Format $AGGFMT has been output.
+1361
+1362    VALUE $INC (MULTILABEL)
+1363      '01' = '01'
+1364      '01' = '10'
+1365      '02' = '02'
+1366      '02' = '10'
+1367      '03' = '03'
+1368      '03' = '10'
+1369      '04' = '04'
+1370      '04' = '10'
+1371      '05' = '05'
+1372      '05' = '10'
+1373      '06' = '06'
+1374      '06' = '10'
+1375      '07' = '07'
+1376      '07' = '10'
+1377      '08' = '08'
+1378      '08' = '10'
+1379      '09' = '09'
+1380      '09' = '10';
+NOTE: Format $INC is already on the library.
+NOTE: Format $INC has been output.
+1381      /* CREATE INCOME CLASS FORMAT */
+1382  RUN;
+
+NOTE: PROCEDURE FORMAT used:
+      real time           50.65 seconds
+      cpu time            49.21 seconds
+
+
+1383
+1384
+1385  PROC FORMAT LIBRARY= WORK  CNTLIN= LBLFMT;
+NOTE: Format $LBLFMT is already on the library.
+NOTE: Format $LBLFMT has been output.
+1386  RUN;
+
+NOTE: PROCEDURE FORMAT used:
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+NOTE: There were 929 observations read from the data set WORK.LBLFMT.
+
+1387
+1388
+1389    /***************************************************************************/
+
+1390    /* STEP2: READ IN ALL NEEDED DATA FROM THE CD-ROM                          */
+
+1391    /* ----------------------------------------------------------------------- */
+
+1392    /* 1 READ IN THE INTERVIEW AND DIARY FMLY FILES & CREATE MO_SCOPE VARIABLE */
+
+1393    /* 2 READ IN THE INTERVIEW MTAB/ITAB AND DIARY EXPN/DTAB FILES             */
+
+1394    /* 3 MERGE FMLY AND EXPENDITURE FILES TO DERIVE WEIGHTED EXPENDITURES      */
+
+1395    /***************************************************************************/
+
+1396
+1397
+1398  DATA FMLY (KEEP= NEWID SOURCE INCLASS WTREP01-WTREP44 FINLWT21 REPWT1-REPWT45);
+
+1399
+1400  SET D&YR1..FMLD&YR1.1
+1401      D&YR1..FMLD&YR1.2
+1402      D&YR1..FMLD&YR1.3
+1403      D&YR1..FMLD&YR1.4
+1404
+1405      I&YR1..FMLI&YR1.1X (IN= FIRSTQTR)
+1406      I&YR1..FMLI&YR1.2
+1407      I&YR1..FMLI&YR1.3
+1408      I&YR1..FMLI&YR1.4
+1409      I&YR1..FMLI&YR2.1  (IN= LASTQTR);
+1410
+1411      BY NEWID;
+1412
+1413      IF FIRSTQTR THEN
+1414        MO_SCOPE = (QINTRVMO - 1);
+1415      ELSE IF LASTQTR THEN
+1416        MO_SCOPE = (4 - QINTRVMO);
+1417      ELSE
+1418        MO_SCOPE = 3;
+1419
+1420
+1421      ARRAY REPS_A(45) WTREP01-WTREP44 FINLWT21;
+1422      ARRAY REPS_B(45) REPWT1-REPWT45;
+1423
+1424        DO i = 1 TO 45;
+1425        IF REPS_A(i) > 0 THEN
+1426           REPS_B(i) = (REPS_A(i) * MO_SCOPE / 12);
+1427           ELSE REPS_B(i) = 0;
+1428        END;
+1429
+1430        IF QINTRVYR  THEN
+1431          SOURCE = 'I';
+1432        IF WEEKI THEN
+1433          SOURCE = 'D';
+1434  RUN;
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      1414:19   1416:23   1430:10   1432:10
+NOTE: There were 3483 observations read from the data set D06.FMLD061.
+NOTE: There were 3602 observations read from the data set D06.FMLD062.
+NOTE: There were 3712 observations read from the data set D06.FMLD063.
+NOTE: There were 3658 observations read from the data set D06.FMLD064.
+NOTE: There were 7786 observations read from the data set I06.FMLI061X.
+NOTE: There were 7009 observations read from the data set I06.FMLI062.
+NOTE: There were 6988 observations read from the data set I06.FMLI063.
+NOTE: There were 7084 observations read from the data set I06.FMLI064.
+NOTE: There were 6965 observations read from the data set I06.FMLI071.
+NOTE: The data set WORK.FMLY has 50287 observations and 93 variables.
+NOTE: DATA statement used:
+      real time           25.78 seconds
+      cpu time            5.10 seconds
+
+
+1435
+1436
+1437
+1438  DATA EXPEND (KEEP= NEWID SOURCE UCC COST);
+1439
+1440    SET D&YR1..EXPD&YR1.1
+1441        D&YR1..EXPD&YR1.2
+1442        D&YR1..EXPD&YR1.3
+1443        D&YR1..EXPD&YR1.4
+1444
+1445        D&YR1..DTBD&YR1.1 (RENAME=(AMOUNT=COST))
+1446        D&YR1..DTBD&YR1.2 (RENAME=(AMOUNT=COST))
+1447        D&YR1..DTBD&YR1.3 (RENAME=(AMOUNT=COST))
+1448        D&YR1..DTBD&YR1.4 (RENAME=(AMOUNT=COST))
+1449
+1450        I&YR1..MTBI&YR1.1X
+1451        I&YR1..MTBI&YR1.2
+1452        I&YR1..MTBI&YR1.3
+1453        I&YR1..MTBI&YR1.4
+1454        I&YR1..MTBI&YR2.1
+1455
+1456        I&YR1..ITBI&YR1.1X (RENAME=(VALUE=COST))
+1457        I&YR1..ITBI&YR1.2  (RENAME=(VALUE=COST))
+1458        I&YR1..ITBI&YR1.3  (RENAME=(VALUE=COST))
+1459        I&YR1..ITBI&YR1.4  (RENAME=(VALUE=COST))
+1460        I&YR1..ITBI&YR2.1  (RENAME=(VALUE=COST));
+1461
+1462        BY NEWID;
+1463
+1464    IF (PUBFLAG = '2') THEN
+1465      DO;
+1466          SOURCE = 'I';
+1467        IF (UCC = '710110') THEN
+1468          COST = (COST * 4);
+1469        IF (REFYR = "&YEAR") OR  (REF_YR = "&YEAR") THEN
+1470          OUTPUT;
+1471      END;
+1472
+1473    IF (PUB_FLAG = '2') THEN
+1474      DO;
+1475        SOURCE = 'D';
+1476        COST = (COST * 13);
+1477        OUTPUT;
+1478      END;
+1479  RUN;
+
+NOTE: There were 136508 observations read from the data set D06.EXPD061.
+NOTE: There were 143612 observations read from the data set D06.EXPD062.
+NOTE: There were 147263 observations read from the data set D06.EXPD063.
+NOTE: There were 144684 observations read from the data set D06.EXPD064.
+NOTE: There were 59851 observations read from the data set D06.DTBD061.
+NOTE: There were 62257 observations read from the data set D06.DTBD062.
+NOTE: There were 63756 observations read from the data set D06.DTBD063.
+NOTE: There were 62458 observations read from the data set D06.DTBD064.
+NOTE: There were 664349 observations read from the data set I06.MTBI061X.
+NOTE: There were 566693 observations read from the data set I06.MTBI062.
+NOTE: There were 578124 observations read from the data set I06.MTBI063.
+NOTE: There were 575481 observations read from the data set I06.MTBI064.
+NOTE: There were 583956 observations read from the data set I06.MTBI071.
+NOTE: There were 438150 observations read from the data set I06.ITBI061X.
+NOTE: There were 396375 observations read from the data set I06.ITBI062.
+NOTE: There were 394824 observations read from the data set I06.ITBI063.
+NOTE: There were 397476 observations read from the data set I06.ITBI064.
+NOTE: There were 389463 observations read from the data set I06.ITBI071.
+NOTE: The data set WORK.EXPEND has 3792299 observations and 4 variables.
+NOTE: DATA statement used:
+      real time           20.79 seconds
+      cpu time            6.98 seconds
+
+
+1480
+1481
+1482
+1483  DATA PUBFILE (KEEP= NEWID SOURCE INCLASS UCC RCOST1-RCOST45);
+1484    MERGE FMLY   (IN= INFAM)
+1485          EXPEND (IN= INEXP);
+1486    BY NEWID;
+1487    IF (INEXP AND INFAM);
+1488
+1489    IF (COST = .)  THEN
+1490       COST = 0;
+1491
+1492       ARRAY REPS_A(45) WTREP01-WTREP44 FINLWT21;
+1493       ARRAY REPS_B(45) RCOST1-RCOST45;
+1494
+1495       DO i = 1 TO 45;
+1496         IF REPS_A(i) > 0
+1497           THEN REPS_B(i) = (REPS_A(i) * COST);
+1498           ELSE REPS_B(i) = 0;
+1499       END;
+1500  RUN;
+
+NOTE: There were 50287 observations read from the data set WORK.FMLY.
+NOTE: There were 3792299 observations read from the data set WORK.EXPEND.
+NOTE: The data set WORK.PUBFILE has 3792299 observations and 49 variables.
+NOTE: DATA statement used:
+      real time           2:24.18
+      cpu time            2:14.34
+
+
+1501
+1502
+1503
+1504    /***************************************************************************/
+
+1505    /* STEP3: CALCULATE POPULATIONS                                            */
+
+1506    /* ----------------------------------------------------------------------- */
+
+1507    /*  SUM ALL 45 WEIGHT VARIABLES TO DERIVE REPLICATE POPULATIONS            */
+
+1508    /*  FORMATS FOR CORRECT COLUMN CLASSIFICATIONS                             */
+
+1509    /***************************************************************************/
+
+1510
+1511
+1512  PROC SUMMARY NWAY DATA=FMLY SUMSIZE=MAX;
+1513    CLASS INCLASS SOURCE / MLF;
+1514    VAR REPWT1-REPWT45;
+1515    FORMAT INCLASS $INC.;
+1516    OUTPUT OUT = POP (DROP = _TYPE_ _FREQ_) SUM = RPOP1-RPOP45;
+1517  RUN;
+
+NOTE: There were 50287 observations read from the data set WORK.FMLY.
+NOTE: The data set WORK.POP has 20 observations and 47 variables.
+NOTE: PROCEDURE SUMMARY used:
+      real time           3.68 seconds
+      cpu time            0.46 seconds
+
+
+1518
+1519
+1520
+1521    /***************************************************************************/
+
+1522    /* STEP4: CALCULATE WEIGHTED AGGREGATE EXPENDITURES                        */
+
+1523    /* ----------------------------------------------------------------------- */
+
+1524    /*  SUM THE 45 REPLICATE WEIGHTED EXPENDITURES TO DERIVE AGGREGATES/UCC    */
+
+1525    /*  FORMATS FOR CORRECT COLUMN CLASSIFICATIONS                             */
+
+1526    /***************************************************************************/
+
+1527
+1528
+1529  PROC SUMMARY NWAY DATA=PUBFILE SUMSIZE=MAX COMPLETETYPES;
+1530    CLASS SOURCE UCC INCLASS / MLF;
+1531    VAR RCOST1-RCOST45;
+1532    FORMAT INCLASS $INC.;
+1533     OUTPUT OUT= AGG (DROP= _TYPE_ _FREQ_)
+1534     SUM= RCOST1-RCOST45;
+1535  RUN;
+
+NOTE: There were 3792299 observations read from the data set WORK.PUBFILE.
+NOTE: The data set WORK.AGG has 15860 observations and 48 variables.
+NOTE: PROCEDURE SUMMARY used:
+      real time           1:43.89
+      cpu time            40.73 seconds
+
+
+1536
+1537
+1538
+1539    /***************************************************************************/
+
+1540    /* STEP5: CALCULTATE MEAN EXPENDITURES                                     */
+
+1541    /* ----------------------------------------------------------------------- */
+
+1542    /* 1 READ IN POPULATIONS AND LOAD INTO MEMORY USING A 3 DIMENSIONAL ARRAY  */
+
+1543    /*   POPULATIONS ARE ASSOCIATED BY INCLASS, SOURCE(t), AND REPLICATE(j)    */
+
+1544    /* 2 READ IN AGGREGATE EXPENDITURES FROM AGG DATASET                       */
+
+1545    /* 3 CALCULATE MEANS BY DIVIDING AGGREGATES BY CORRECT SOURCE POPULATIONS  */
+
+1546    /*   EXPENDITURES SOURCED FROM DIARY ARE CALULATED USING DIARY POPULATIONS */
+
+1547    /*   WHILE INTRVIEW EXPENDITURES USE INTERVIEW POPULATIONS                 */
+
+1548    /* 4 SUM EXPENDITURE MEANS PER UCC INTO CORRECT LINE ITEM AGGREGATIONS     */
+
+1549    /***************************************************************************/
+
+1550
+1551
+1552  DATA AVGS1 (KEEP = SOURCE INCLASS UCC MEAN1-MEAN45);
+1553
+1554    /* READS IN POP DATASET. _TEMPORARY_ LOADS POPULATIONS INTO SYSTEM MEMORY  */
+
+1555    ARRAY POP{01:10,2,45} _TEMPORARY_ ;
+1556    IF _N_ = 1 THEN DO i = 1 TO 20;
+1557      SET POP;
+1558      ARRAY REPS{45} RPOP1--RPOP45;
+1559      IF SOURCE = 'D' THEN t = 1;
+1560      ELSE t = 2;
+1561        DO j = 1 TO 45;
+1562          POP{INCLASS,t,j} = REPS{j};
+1563        END;
+1564      END;
+1565
+1566    /* READS IN AGG DATASET AND CALCULATES MEANS BY DIVIDING BY POPULATIONS  */
+
+1567    SET AGG (KEEP = UCC INCLASS SOURCE RCOST1-RCOST45);
+1568      IF SOURCE = 'D' THEN t = 1;
+1569      ELSE t = 2;
+1570    ARRAY AGGS(45) RCOST1-RCOST45;
+1571    ARRAY AVGS(45) MEAN1-MEAN45;
+1572      DO k = 1 TO 45;
+1573        IF AGGS(k) = .  THEN AGGS(k) = 0;
+1574        AVGS(k) = AGGS(k) / POP{INCLASS,t,k};
+1575      END;
+1576  RUN;
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      1562:13   1574:31
+NOTE: There were 20 observations read from the data set WORK.POP.
+NOTE: There were 15860 observations read from the data set WORK.AGG.
+NOTE: The data set WORK.AVGS1 has 15860 observations and 48 variables.
+NOTE: DATA statement used:
+      real time           2.59 seconds
+      cpu time            1.37 seconds
+
+
+1577
+1578
+1579  PROC SUMMARY DATA=AVGS1 NWAY COMPLETETYPES;
+1580    CLASS INCLASS UCC / MLF;
+1581    VAR MEAN1-MEAN45;
+1582    FORMAT UCC $AGGFMT.;
+1583    OUTPUT OUT=AVGS2 (DROP= _TYPE_ _FREQ_  RENAME=(UCC= LINE)) SUM= ;
+1584    /* SUM UCC MEANS TO CREATE AGGREGATION SCHEME */
+1585  RUN;
+
+NOTE: There were 15860 observations read from the data set WORK.AVGS1.
+NOTE: The data set WORK.AVGS2 has 9000 observations and 47 variables.
+NOTE: PROCEDURE SUMMARY used:
+      real time           1.45 seconds
+      cpu time            0.54 seconds
+
+
+1586
+1587
+1588    /***************************************************************************/
+
+1589    /* STEP6: CALCULTATE STANDARD ERRORS                                       */
+
+1590    /* ----------------------------------------------------------------------- */
+
+1591    /*  CALCULATE STANDARD ERRORS USING REPLICATE FORMULA                      */
+
+1592    /***************************************************************************/
+
+1593
+1594
+1595  DATA SE (KEEP = INCLASS LINE MEAN SE);
+1596    SET AVGS2;
+1597    ARRAY RMNS(44) MEAN1-MEAN44;
+1598    ARRAY DIFF(44) DIFF1-DIFF44;
+1599      DO i = 1 TO 44;
+1600        DIFF(i) = (RMNS(i) - MEAN45)**2;
+1601      END;
+1602    MEAN = MEAN45;
+1603    SE = SQRT((1/44)*SUM(OF DIFF(*)));
+1604  RUN;
+
+NOTE: There were 9000 observations read from the data set WORK.AVGS2.
+NOTE: The data set WORK.SE has 9000 observations and 4 variables.
+NOTE: DATA statement used:
+      real time           0.70 seconds
+      cpu time            0.46 seconds
+
+
+1605
+1606
+1607    /***************************************************************************/
+
+1608    /* STEP7: TABULATE EXPENDITURES                                            */
+
+1609    /* ----------------------------------------------------------------------- */
+
+1610    /* 1 ARRANGE DATA INTO TABULAR FORM                                        */
+
+1611    /* 2 SET OUT INTERVIEW POPULATIONS FOR POPULATION LINE ITEM                */
+
+1612    /* 3 INSERT POPULATION LINE INTO TABLE                                     */
+
+1613    /* 4 INSERT ZERO EXPENDITURE LINE ITEMS INTO TABLE FOR COMPLETENESS        */
+
+1614    /***************************************************************************/
+
+1615
+1616
+1617  PROC SORT DATA=SE;
+1618    BY LINE INCLASS;
+1619
+
+NOTE: There were 9000 observations read from the data set WORK.SE.
+NOTE: The data set WORK.SE has 9000 observations and 4 variables.
+NOTE: PROCEDURE SORT used:
+      real time           0.12 seconds
+      cpu time            0.01 seconds
+
+
+1620  PROC TRANSPOSE DATA=SE OUT=TAB1
+1621    NAME = ESTIMATE PREFIX = INCLASS;
+1622    BY LINE;
+1623    VAR MEAN SE;
+1624    /*ARRANGE DATA INTO TABULAR FORM */
+1625  RUN;
+
+NOTE: There were 9000 observations read from the data set WORK.SE.
+NOTE: The data set WORK.TAB1 has 1800 observations and 12 variables.
+NOTE: PROCEDURE TRANSPOSE used:
+      real time           0.28 seconds
+      cpu time            0.01 seconds
+
+
+1626
+1627
+1628  PROC TRANSPOSE DATA=POP (KEEP = SOURCE RPOP45) OUT=CUS
+1629    NAME = LINE PREFIX = INCLASS;
+1630    VAR RPOP45;
+1631    WHERE SOURCE = 'I';
+1632    /* SET ASIDE POPULATIONS FROM INTERVIEW */
+1633  RUN;
+
+NOTE: There were 10 observations read from the data set WORK.POP.
+      WHERE SOURCE='I';
+NOTE: The data set WORK.CUS has 1 observations and 11 variables.
+NOTE: PROCEDURE TRANSPOSE used:
+      real time           0.10 seconds
+      cpu time            0.03 seconds
+
+
+1634
+1635
+1636  DATA TAB2;
+1637    SET CUS TAB1;
+1638    IF LINE = 'RPOP45' THEN DO;
+1639      LINE = '100001';
+1640      ESTIMATE = 'N';
+1641      END;
+1642    /* INSERT POPULATION LINE ITEM INTO TABLE AND ASSIGN LINE NUMBER */
+1643  RUN;
+
+NOTE: There were 1 observations read from the data set WORK.CUS.
+NOTE: There were 1800 observations read from the data set WORK.TAB1.
+NOTE: The data set WORK.TAB2 has 1801 observations and 12 variables.
+NOTE: DATA statement used:
+      real time           0.25 seconds
+      cpu time            0.00 seconds
+
+
+1644
+1645  PROC SORT DATA=TAB2;
+1646      BY LINE;
+1647  RUN;
+
+NOTE: There were 1801 observations read from the data set WORK.TAB2.
+NOTE: The data set WORK.TAB2 has 1801 observations and 12 variables.
+NOTE: PROCEDURE SORT used:
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+
+
+1648
+1649
+1650  DATA TAB;
+1651    MERGE TAB2 STUBFILE;
+1652    BY LINE;
+1653      IF LINE NE '100001' THEN DO;
+1654        IF SURVEY = 'S' THEN DELETE;
+1655      END;
+1656      ARRAY CNTRL(10) INCLASS1-INCLASS10;
+1657        DO i = 1 TO 10;
+1658          IF CNTRL(i) = . THEN CNTRL(i) = 0;
+1659          IF SUM(OF CNTRL(*)) = 0 THEN ESTIMATE = 'MEAN';
+1660        END;
+1661
+1662      IF GROUP IN ('CUCHARS' 'INCOME') THEN DO;
+1663        IF LAG(LINE) = LINE THEN DELETE;
+1664      END;
+1665    /* MERGE STUBFILE BACK INTO TABLE TO INSERT EXPENDITURE LINES */
+1666    /* THAT HAD ZERO EXPENDITURES FOR THE YEAR                    */
+1667  RUN;
+
+NOTE: There were 1801 observations read from the data set WORK.TAB2.
+NOTE: There were 929 observations read from the data set WORK.STUBFILE.
+NOTE: The data set WORK.TAB has 1745 observations and 20 variables.
+NOTE: DATA statement used:
+      real time           0.23 seconds
+      cpu time            0.03 seconds
+
+
+1668
+1669
+1670  PROC TABULATE DATA=TAB;
+1671    CLASS LINE / GROUPINTERNAL ORDER=DATA;
+1672    CLASS ESTIMATE;
+1673    VAR INCLASS1-INCLASS10;
+1674    FORMAT LINE $LBLFMT.;
+1675
+1676      TABLE (LINE * ESTIMATE), (INCLASS10 INCLASS1 INCLASS2 INCLASS3 INCLASS4
+
+1677                                INCLASS5  INCLASS6 INCLASS7 INCLASS8 INCLASS9)
+
+1678      *SUM='' / RTS=25;
+1679      LABEL ESTIMATE=ESTIMATE LINE=LINE
+1680            INCLASS1='LESS THAN $5,000'   INCLASS2='$5,000 TO $9,999'
+1681            INCLASS3='$10,000 TO $14,999' INCLASS4='$15,000 TO $19,999'
+1682            INCLASS5='$20,000 TO $29,999' INCLASS6='$30,000 TO $39,999'
+1683            INCLASS7='$40,000 TO $49,999' INCLASS8='$50,000 TO $69,999'
+1684            INCLASS9='$70,000 AND OVER'   INCLASS10='ALL CONSUMER UNITS';
+1685      OPTIONS NODATE NOCENTER NONUMBER LS=167 PS=MAX;
+1686      WHERE LINE NE 'OTHER';
+1687      TITLE "INTEGRATED EXPENDITURES FOR &YEAR BY INCOME BEFORE TAXES";
+1688  RUN;
+
+NOTE: There were 1743 observations read from the data set WORK.TAB.
+      WHERE LINE not = 'OTHER';
+NOTE: PROCEDURE TABULATE used:
+      real time           0.84 seconds
+      cpu time            0.15 seconds
+
+

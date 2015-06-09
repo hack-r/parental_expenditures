@@ -1,0 +1,723 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+       log:  {res}P:\Phase 4 Production (BIA)\Microdata\2008 Processing\Sample Programs\Stata\DiaryTable2008.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}19 Oct 2009, 16:43:18
+{txt}
+{com}. do "P:\Phase 4 Production (BIA)\Microdata\2008 Processing\Sample Programs\Stata\DiaryTable2008.do"
+{txt}
+{com}. cd C:\data\2008\STATA\Diary08
+{res}C:\data\2008\STATA\Diary08
+{txt}
+{com}. set memory 100m
+{txt}
+{title:Current memory allocation}
+
+{col 21}current{col 61}memory usage
+{col 5}settable{col 23}value{col 33}description{col 61}(1M = 1024k)
+{col 5}{hline 68}
+{col 5}set maxvar{col 22}{res:  5000}{col 33}max. variables allowed           1.733M
+{col 5}set memory          {res:100M}{col 33}max. data space                100.000M
+{col 5}set matsize{col 21}{res:    400}{col 33}max. RHS vars in models          1.254M
+{col 61}{hline 11}
+{col 55}         102.987M
+
+{com}. 
+. infix  str type 1  str agglvl 4  str title 7-69  ///
+>        str ucc 70-75  str survey 80  str group 86-93  ///
+>        str publvl 99  using Dstub2008.txt
+{txt}(796 observations read)
+
+{com}.         keep if type=="1"
+{txt}(40 observations deleted)
+
+{com}.         drop if group=="ADDENDA"
+{txt}(275 observations deleted)
+
+{com}.         format title %-63s
+{txt}
+{com}. save stubfile
+{txt}file stubfile.dta saved
+
+{com}. 
+. generate count = (_n+9999)
+{txt}
+{com}. generate line = string(count) + agglvl
+{txt}
+{com}.         generate line1=line if ucc>"A" & substr(line,6,1)=="1"
+{txt}(461 missing values generated)
+
+{com}.         generate line2=line if ucc>"A" & substr(line,6,1)=="2"
+{txt}(446 missing values generated)
+
+{com}.         generate line3=line if ucc>"A" & substr(line,6,1)=="3"
+{txt}(449 missing values generated)
+
+{com}.         generate line4=line if ucc>"A" & substr(line,6,1)=="4"
+{txt}(458 missing values generated)
+
+{com}.         generate line5=line if ucc>"A" & substr(line,6,1)=="5"
+{txt}(465 missing values generated)
+
+{com}.         generate line6=line if ucc <= "A"
+{txt}(126 missing values generated)
+
+{com}. sort line
+{txt}
+{com}. save aggfile1
+{txt}file aggfile1.dta saved
+
+{com}. 
+. keep title line
+{txt}
+{com}. save lblfile
+{txt}file lblfile.dta saved
+
+{com}. 
+. use aggfile1
+{txt}
+{com}.         keep line ucc
+{txt}
+{com}.         sort line
+{txt}
+{com}. save l
+{txt}file l.dta saved
+
+{com}. 
+. use aggfile1
+{txt}
+{com}.         keep if line1 > " "
+{txt}(461 observations deleted)
+
+{com}.         keep line line1
+{txt}
+{com}. save l1
+{txt}file l1.dta saved
+
+{com}. 
+. use aggfile1
+{txt}
+{com}.         keep if line2 > " "
+{txt}(446 observations deleted)
+
+{com}.         keep line line2
+{txt}
+{com}. save l2
+{txt}file l2.dta saved
+
+{com}. 
+. use aggfile1
+{txt}
+{com}.         keep if line3 > " "
+{txt}(449 observations deleted)
+
+{com}.         keep line line3
+{txt}
+{com}. save l3
+{txt}file l3.dta saved
+
+{com}. 
+. use aggfile1
+{txt}
+{com}.         keep if line4 > " "
+{txt}(458 observations deleted)
+
+{com}.         keep line line4
+{txt}
+{com}. save l4
+{txt}file l4.dta saved
+
+{com}. 
+. use aggfile1
+{txt}
+{com}.         keep if line5 > " "
+{txt}(465 observations deleted)
+
+{com}.         keep line line5
+{txt}
+{com}. save l5
+{txt}file l5.dta saved
+
+{com}. 
+. use aggfile1
+{txt}
+{com}.         keep if line6 > " "
+{txt}(126 observations deleted)
+
+{com}.         keep ucc line line6
+{txt}
+{com}.         sort line
+{txt}
+{com}. save l6
+{txt}file l6.dta saved
+
+{com}. 
+. use l
+{txt}
+{com}.         cross using l1
+{txt}
+{com}.         drop if line1 > line
+{txt}(5415 observations deleted)
+
+{com}.         gsort +line -line1
+{txt}
+{com}.         duplicates drop line, force
+
+{p 0 4}{txt}Duplicates in terms of {res} line{p_end}
+
+{txt}(3724 observations deleted)
+
+{com}. save c1
+{txt}file c1.dta saved
+
+{com}. 
+. cross using l2
+{txt}
+{com}.         drop if line2 > line
+{txt}(12382 observations deleted)
+
+{com}.         gsort +line -line2
+{txt}
+{com}.         duplicates drop line, force
+
+{p 0 4}{txt}Duplicates in terms of {res} line{p_end}
+
+{txt}(4007 observations deleted)
+
+{com}. save c2
+{txt}file c2.dta saved
+
+{com}. 
+. cross using l3
+{txt}
+{com}.         drop if line3 > line
+{txt}(7076 observations deleted)
+
+{com}.         gsort +line -line3
+{txt}
+{com}.         duplicates drop line, force
+
+{p 0 4}{txt}Duplicates in terms of {res} line{p_end}
+
+{txt}(6751 observations deleted)
+
+{com}. save c3
+{txt}file c3.dta saved
+
+{com}. 
+. cross using l4
+{txt}
+{com}.         drop if line4 > line
+{txt}(2187 observations deleted)
+
+{com}.         gsort +line -line4
+{txt}
+{com}.         duplicates drop line, force
+
+{p 0 4}{txt}Duplicates in terms of {res} line{p_end}
+
+{txt}(7604 observations deleted)
+
+{com}. save c4
+{txt}file c4.dta saved
+
+{com}. 
+. cross using l5
+{txt}
+{com}.         drop if line5 > line
+{txt}(1032 observations deleted)
+
+{com}.         gsort +line -line5
+{txt}
+{com}.         duplicates drop line, force
+
+{p 0 4}{txt}Duplicates in terms of {res} line{p_end}
+
+{txt}(5635 observations deleted)
+
+{com}. save c5
+{txt}file c5.dta saved
+
+{com}. 
+. use l
+{txt}
+{com}. merge line using c1 c2 c3 c4 c5 l6, sort
+{txt}
+{com}.         drop _merge* line
+{txt}
+{com}.         drop if line6==""
+{txt}(126 observations deleted)
+
+{com}. sort ucc
+{txt}
+{com}. 
+. stack  ucc line6 line1  ucc line6 line2  ucc line6 line3  ///
+>        ucc line6 line4  ucc line6 line5  ucc line6 line6  ///
+>        ,into(ucc compare line)  clear
+{txt}
+{com}. drop if line==""
+{txt}(121 observations deleted)
+
+{com}. 
+. keep if substr(compare,6,1) > substr(line,6,1) | compare==line
+{txt}(585 observations deleted)
+
+{com}.         sort ucc line
+{txt}
+{com}.         drop _stack compare
+{txt}
+{com}. save aggfile
+{txt}file aggfile.dta saved
+
+{com}. 
+. 
+. use fmld081
+{txt}
+{com}. keep newid finlwt21 inclass
+{txt}
+{com}.         append using fmld082, keep(newid finlwt21 inclass)
+{txt}
+{com}.         append using fmld083, keep(newid finlwt21 inclass)
+{txt}
+{com}.         append using fmld084, keep(newid finlwt21 inclass)
+{txt}
+{com}. generate weight=finlwt21/4
+{txt}
+{com}. sort newid
+{txt}
+{com}. describe
+
+{txt}Contains data from {res}fmld081.dta
+{txt}  obs:{res}        14,179                          
+{txt} vars:{res}             4                          
+{txt} size:{res}       311,938{txt} (99.7% of memory free)
+{hline 79}
+              storage  display     value
+variable name   type   format      label      variable label
+{hline 79}
+{res}newid          {txt} long   %12.0g                 {res}
+finlwt21       {txt} double %10.0g                 {res}
+inclass        {txt} str2   %2s                    {res}
+weight         {txt} float  %9.0g                  {res}
+{txt}{hline 79}
+Sorted by:  {res}newid
+     Note:  dataset has changed since last saved
+{txt}
+{com}. list newid inclass finlwt21 weight in 1/15, divider
+{txt}
+     {c TLC}{hline 8}{c TT}{hline 9}{c TT}{hline 11}{c TT}{hline 10}{c TRC}
+     {c |} {res} newid {txt}{c |} {res}inclass {txt}{c |} {res} finlwt21 {txt}{c |} {res}  weight {txt}{c |}
+     {c LT}{hline 8}{c +}{hline 9}{c +}{hline 11}{c +}{hline 10}{c RT}
+  1. {c |} {res}889261 {txt}{c |} {res}     09 {txt}{c |} {res}26087.978 {txt}{c |} {res}6521.995 {txt}{c |}
+  2. {c |} {res}889262 {txt}{c |} {res}     09 {txt}{c |} {res}26087.978 {txt}{c |} {res}6521.995 {txt}{c |}
+  3. {c |} {res}889271 {txt}{c |} {res}     09 {txt}{c |} {res}27323.982 {txt}{c |} {res}6830.996 {txt}{c |}
+  4. {c |} {res}889272 {txt}{c |} {res}     09 {txt}{c |} {res}27323.982 {txt}{c |} {res}6830.996 {txt}{c |}
+  5. {c |} {res}889281 {txt}{c |} {res}     09 {txt}{c |} {res}28912.325 {txt}{c |} {res}7228.081 {txt}{c |}
+     {c LT}{hline 8}{c +}{hline 9}{c +}{hline 11}{c +}{hline 10}{c RT}
+  6. {c |} {res}889282 {txt}{c |} {res}     09 {txt}{c |} {res}28912.325 {txt}{c |} {res}7228.081 {txt}{c |}
+  7. {c |} {res}889291 {txt}{c |} {res}     04 {txt}{c |} {res}45722.149 {txt}{c |} {res}11430.54 {txt}{c |}
+  8. {c |} {res}889292 {txt}{c |} {res}     01 {txt}{c |} {res}43634.577 {txt}{c |} {res}10908.64 {txt}{c |}
+  9. {c |} {res}889301 {txt}{c |} {res}     05 {txt}{c |} {res}36068.708 {txt}{c |} {res}9017.177 {txt}{c |}
+ 10. {c |} {res}889302 {txt}{c |} {res}     05 {txt}{c |} {res}36068.708 {txt}{c |} {res}9017.177 {txt}{c |}
+     {c LT}{hline 8}{c +}{hline 9}{c +}{hline 11}{c +}{hline 10}{c RT}
+ 11. {c |} {res}889311 {txt}{c |} {res}     05 {txt}{c |} {res}36801.488 {txt}{c |} {res}9200.372 {txt}{c |}
+ 12. {c |} {res}889312 {txt}{c |} {res}     05 {txt}{c |} {res}36801.488 {txt}{c |} {res}9200.372 {txt}{c |}
+ 13. {c |} {res}889321 {txt}{c |} {res}     04 {txt}{c |} {res}30080.541 {txt}{c |} {res}7520.135 {txt}{c |}
+ 14. {c |} {res}889322 {txt}{c |} {res}     03 {txt}{c |} {res}30080.541 {txt}{c |} {res}7520.135 {txt}{c |}
+ 15. {c |} {res}889331 {txt}{c |} {res}     09 {txt}{c |} {res}29042.725 {txt}{c |} {res}7260.681 {txt}{c |}
+     {c BLC}{hline 8}{c BT}{hline 9}{c BT}{hline 11}{c BT}{hline 10}{c BRC}
+
+{com}. save fmly
+{txt}file fmly.dta saved
+
+{com}. 
+. use dtbd081
+{txt}
+{com}. keep newid ucc amount
+{txt}
+{com}.         append using dtbd082, keep(newid ucc amount)
+{txt}
+{com}.         append using dtbd083, keep(newid ucc amount)
+{txt}
+{com}.         append using dtbd084, keep(newid ucc amount)
+{txt}
+{com}. rename amount cost
+{txt}
+{com}.         append using expd081, keep(newid ucc cost)
+{txt}cost was {res}long{txt} now {res}double
+{txt}
+{com}.         append using expd082, keep(newid ucc cost)
+{txt}
+{com}.         append using expd083, keep(newid ucc cost)
+{txt}
+{com}.         append using expd084, keep(newid ucc cost)
+{txt}
+{com}. sort newid
+{txt}
+{com}. describe
+
+{txt}Contains data from {res}dtbd081.dta
+{txt}  obs:{res}       781,554                          
+{txt} vars:{res}             3                          
+{txt} size:{res}    17,194,188{txt} (83.6% of memory free)
+{hline 79}
+              storage  display     value
+variable name   type   format      label      variable label
+{hline 79}
+{res}newid          {txt} long   %12.0g                 {res}
+ucc            {txt} str6   %6s                    {res}
+cost           {txt} double %12.0g                 {res}
+{txt}{hline 79}
+Sorted by:  {res}newid
+     Note:  dataset has changed since last saved
+{txt}
+{com}. list newid ucc cost in 1/15, divider
+{txt}
+     {c TLC}{hline 8}{c TT}{hline 8}{c TT}{hline 13}{c TRC}
+     {c |} {res} newid {txt}{c |} {res}   ucc {txt}{c |} {res}       cost {txt}{c |}
+     {c LT}{hline 8}{c +}{hline 8}{c +}{hline 13}{c RT}
+  1. {c |} {res}889261 {txt}{c |} {res}170110 {txt}{c |} {res}4.250480175 {txt}{c |}
+  2. {c |} {res}889261 {txt}{c |} {res}980281 {txt}{c |} {res}        100 {txt}{c |}
+  3. {c |} {res}889261 {txt}{c |} {res}190212 {txt}{c |} {res}       14.5 {txt}{c |}
+  4. {c |} {res}889261 {txt}{c |} {res}020310 {txt}{c |} {res}5.989999771 {txt}{c |}
+  5. {c |} {res}889261 {txt}{c |} {res}040510 {txt}{c |} {res}5.989999771 {txt}{c |}
+     {c LT}{hline 8}{c +}{hline 8}{c +}{hline 13}{c RT}
+  6. {c |} {res}889261 {txt}{c |} {res}020310 {txt}{c |} {res}          4 {txt}{c |}
+  7. {c |} {res}889261 {txt}{c |} {res}630110 {txt}{c |} {res}6.690000057 {txt}{c |}
+  8. {c |} {res}889261 {txt}{c |} {res}060210 {txt}{c |} {res}6.139369965 {txt}{c |}
+  9. {c |} {res}889261 {txt}{c |} {res}630110 {txt}{c |} {res}6.690000057 {txt}{c |}
+ 10. {c |} {res}889261 {txt}{c |} {res}980230 {txt}{c |} {res}        100 {txt}{c |}
+     {c LT}{hline 8}{c +}{hline 8}{c +}{hline 13}{c RT}
+ 11. {c |} {res}889261 {txt}{c |} {res}980000 {txt}{c |} {res}     100000 {txt}{c |}
+ 12. {c |} {res}889261 {txt}{c |} {res}980286 {txt}{c |} {res}        100 {txt}{c |}
+ 13. {c |} {res}889261 {txt}{c |} {res}080110 {txt}{c |} {res} 2.99000001 {txt}{c |}
+ 14. {c |} {res}889261 {txt}{c |} {res}050310 {txt}{c |} {res}         10 {txt}{c |}
+ 15. {c |} {res}889261 {txt}{c |} {res}020110 {txt}{c |} {res}.9991800189 {txt}{c |}
+     {c BLC}{hline 8}{c BT}{hline 8}{c BT}{hline 13}{c BRC}
+
+{com}. save expend
+{txt}file expend.dta saved
+
+{com}. 
+. use fmly
+{txt}
+{com}.         joinby newid using expend, unmatched(using)
+{txt}
+{com}. generate wtcost=cost*weight
+{txt}
+{com}. sort ucc
+{txt}
+{com}. describe
+
+{txt}Contains data
+  obs:{res}       781,554                          
+{txt} vars:{res}             8                          
+{txt} size:{res}    32,043,714{txt} (69.4% of memory free)
+{hline 79}
+              storage  display     value
+variable name   type   format      label      variable label
+{hline 79}
+{res}newid          {txt} long   %12.0g                 {res}
+finlwt21       {txt} double %10.0g                 {res}
+inclass        {txt} str2   %2s                    {res}
+weight         {txt} float  %9.0g                  {res}
+_merge         {txt} byte   %29.0g      __MERGE    {res}
+ucc            {txt} str6   %6s                    {res}
+cost           {txt} double %12.0g                 {res}
+wtcost         {txt} float  %9.0g                  {res}
+{txt}{hline 79}
+Sorted by:  {res}ucc
+     Note:  dataset has changed since last saved
+{txt}
+{com}. list newid inclass ucc weight cost wtcost in 1/15, divider
+{txt}
+     {c TLC}{hline 8}{c TT}{hline 9}{c TT}{hline 8}{c TT}{hline 10}{c TT}{hline 13}{c TT}{hline 10}{c TRC}
+     {c |} {res} newid {txt}{c |} {res}inclass {txt}{c |} {res}   ucc {txt}{c |} {res}  weight {txt}{c |} {res}       cost {txt}{c |} {res}  wtcost {txt}{c |}
+     {c LT}{hline 8}{c +}{hline 9}{c +}{hline 8}{c +}{hline 10}{c +}{hline 13}{c +}{hline 10}{c RT}
+  1. {c |} {res}892751 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}6150.273 {txt}{c |} {res}        210 {txt}{c |} {res} 1291557 {txt}{c |}
+  2. {c |} {res}915891 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}7932.017 {txt}{c |} {res}       53.5 {txt}{c |} {res}424362.9 {txt}{c |}
+  3. {c |} {res}927651 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}7385.442 {txt}{c |} {res}       53.5 {txt}{c |} {res}395121.2 {txt}{c |}
+  4. {c |} {res}950131 {txt}{c |} {res}     05 {txt}{c |} {res}001000 {txt}{c |} {res}10916.63 {txt}{c |} {res}        422 {txt}{c |} {res} 4606816 {txt}{c |}
+  5. {c |} {res}946321 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}1925.776 {txt}{c |} {res}        312 {txt}{c |} {res}600842.1 {txt}{c |}
+     {c LT}{hline 8}{c +}{hline 9}{c +}{hline 8}{c +}{hline 10}{c +}{hline 13}{c +}{hline 10}{c RT}
+  6. {c |} {res}930651 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}6106.527 {txt}{c |} {res}        200 {txt}{c |} {res} 1221306 {txt}{c |}
+  7. {c |} {res}899511 {txt}{c |} {res}     05 {txt}{c |} {res}001000 {txt}{c |} {res}6567.084 {txt}{c |} {res}       2121 {txt}{c |} {res}1.39e+07 {txt}{c |}
+  8. {c |} {res}952891 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}6767.696 {txt}{c |} {res}79.58000183 {txt}{c |} {res}538573.3 {txt}{c |}
+  9. {c |} {res}913002 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}6745.721 {txt}{c |} {res}31.79999924 {txt}{c |} {res}214513.9 {txt}{c |}
+ 10. {c |} {res}912962 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}7689.262 {txt}{c |} {res}20.87000084 {txt}{c |} {res}160474.9 {txt}{c |}
+     {c LT}{hline 8}{c +}{hline 9}{c +}{hline 8}{c +}{hline 10}{c +}{hline 13}{c +}{hline 10}{c RT}
+ 11. {c |} {res}960381 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}8853.659 {txt}{c |} {res}       2121 {txt}{c |} {res}1.88e+07 {txt}{c |}
+ 12. {c |} {res}942622 {txt}{c |} {res}     07 {txt}{c |} {res}001000 {txt}{c |} {res}8853.725 {txt}{c |} {res}54.33000183 {txt}{c |} {res}481022.9 {txt}{c |}
+ 13. {c |} {res}910532 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res} 8381.31 {txt}{c |} {res}52.88000107 {txt}{c |} {res}443203.7 {txt}{c |}
+ 14. {c |} {res}951842 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}5629.438 {txt}{c |} {res}        107 {txt}{c |} {res}602349.9 {txt}{c |}
+ 15. {c |} {res}951841 {txt}{c |} {res}     09 {txt}{c |} {res}001000 {txt}{c |} {res}5629.438 {txt}{c |} {res}250.9900055 {txt}{c |} {res} 1412933 {txt}{c |}
+     {c BLC}{hline 8}{c BT}{hline 9}{c BT}{hline 8}{c BT}{hline 10}{c BT}{hline 13}{c BT}{hline 10}{c BRC}
+
+{com}. save tabdata
+{txt}file tabdata.dta saved
+
+{com}. 
+. use fmly
+{txt}
+{com}.         statsby pops=r(sum), saving(pops1) by(inclass, missing) nodots: sum weight
+{p2colset 7 17 21 2}{...}
+
+{txt}{p2col :command:}summarize weight{p_end}
+{p2colset 10 17 21 2}{...}
+{p2col :pops:}{res:r(sum)}{p_end}
+           by:  inclass
+
+
+{com}. 
+. use pops1
+{txt}(statsby: summarize)
+
+{com}.       gen _varname="pop"+inclass
+{txt}
+{com}.       drop inclass
+{txt}
+{com}.       xpose, clear varname
+{txt}
+{com}.       egen pop10=rsum(pop01-pop09)
+{txt}
+{com}.       xpose, clear varname
+{txt}
+{com}.       gen inclass=substr(_varname,4,2)
+{txt}
+{com}.       drop _varname
+{txt}
+{com}. save pops
+{txt}file pops.dta saved
+
+{com}. 
+. use tabdata
+{txt}
+{com}.         statsby aggs=r(sum), saving(agg1) by(inclass ucc, missing) nodots: sum wtcost
+{p2colset 7 17 21 2}{...}
+
+{txt}{p2col :command:}summarize wtcost{p_end}
+{p2colset 10 17 21 2}{...}
+{p2col :aggs:}{res:r(sum)}{p_end}
+           by:  inclass ucc
+
+
+{com}. 
+. use agg1
+{txt}(statsby: summarize)
+
+{com}.       reshape wide aggs, i(ucc) j(inclass) string
+{txt}(note: j = 01 02 03 04 05 06 07 08 09)
+
+Data{col 36}long{col 43}->{col 48}wide
+{hline 77}
+Number of obs.                 {res}    4382   {txt}->{res}     567
+{txt}Number of variables            {res}       3   {txt}->{res}      10
+{txt}j variable (9 values)           {res}inclass   {txt}->   (dropped)
+xij variables:
+                                   {res}aggs   {txt}->   {res}aggs01 aggs02 ... aggs09
+{txt}{hline 77}
+
+{com}.       egen aggs10=rsum(aggs01-aggs09)
+{txt}
+{com}.       reshape long aggs, i(ucc) j(inclass) string
+{txt}(note: j = 01 02 03 04 05 06 07 08 09 10)
+
+Data{col 36}wide{col 43}->{col 48}long
+{hline 77}
+Number of obs.                 {res}     567   {txt}->{res}    5670
+{txt}Number of variables            {res}      11   {txt}->{res}       3
+{txt}j variable (10 values)                    ->   {res}inclass
+{txt}xij variables:
+               {res}aggs01 aggs02 ... aggs10   {txt}->   {res}aggs
+{txt}{hline 77}
+
+{com}. save agg2
+{txt}file agg2.dta saved
+
+{com}. 
+. use pops
+{txt}
+{com}.         joinby inclass using agg2, unmatched(using)
+{txt}
+{com}.         generate uccmean=aggs/pops
+{txt}(721 missing values generated)
+
+{com}.         format pops aggs uccmean %16.2g
+{txt}
+{com}. describe
+
+{txt}Contains data
+  obs:{res}         5,670                          
+{txt} vars:{res}             6                          
+{txt} size:{res}       141,750{txt} (99.9% of memory free)
+{hline 79}
+              storage  display     value
+variable name   type   format      label      variable label
+{hline 79}
+{res}pops           {txt} float  %16.2g                 {res}
+inclass        {txt} str2   %9s                    {res}
+_merge         {txt} byte   %29.0g      __MERGE    {res}
+ucc            {txt} str6   %9s                    {res}
+aggs           {txt} float  %16.2g                 {res}
+uccmean        {txt} float  %16.2g                 {res}
+{txt}{hline 79}
+Sorted by:  
+{res}     Note:  dataset has changed since last saved
+{txt}
+{com}. list inclass ucc pops aggs uccmean in 1/15, divider
+{txt}
+     {c TLC}{hline 9}{c TT}{hline 8}{c TT}{hline 9}{c TT}{hline 12}{c TT}{hline 9}{c TRC}
+     {c |} {res}inclass {txt}{c |} {res}   ucc {txt}{c |} {res}   pops {txt}{c |} {res}      aggs {txt}{c |} {res}uccmean {txt}{c |}
+     {c LT}{hline 9}{c +}{hline 8}{c +}{hline 9}{c +}{hline 12}{c +}{hline 9}{c RT}
+  1. {c |} {res}     01 {txt}{c |} {res}370212 {txt}{c |} {res}3671905 {txt}{c |} {res}    292022 {txt}{c |} {res}    .08 {txt}{c |}
+  2. {c |} {res}     01 {txt}{c |} {res}590230 {txt}{c |} {res}3671905 {txt}{c |} {res}   1990635 {txt}{c |} {res}    .54 {txt}{c |}
+  3. {c |} {res}     01 {txt}{c |} {res}900000 {txt}{c |} {res}3671905 {txt}{c |} {res}8716548096 {txt}{c |} {res}   2374 {txt}{c |}
+  4. {c |} {res}     01 {txt}{c |} {res}001000 {txt}{c |} {res}3671905 {txt}{c |} {res}         . {txt}{c |} {res}      . {txt}{c |}
+  5. {c |} {res}     01 {txt}{c |} {res}540000 {txt}{c |} {res}3671905 {txt}{c |} {res}  14174497 {txt}{c |} {res}    3.9 {txt}{c |}
+     {c LT}{hline 9}{c +}{hline 8}{c +}{hline 9}{c +}{hline 12}{c +}{hline 9}{c RT}
+  6. {c |} {res}     01 {txt}{c |} {res}550330 {txt}{c |} {res}3671905 {txt}{c |} {res}    665150 {txt}{c |} {res}    .18 {txt}{c |}
+  7. {c |} {res}     01 {txt}{c |} {res}320512 {txt}{c |} {res}3671905 {txt}{c |} {res}         . {txt}{c |} {res}      . {txt}{c |}
+  8. {c |} {res}     01 {txt}{c |} {res}240210 {txt}{c |} {res}3671905 {txt}{c |} {res}   1554410 {txt}{c |} {res}    .42 {txt}{c |}
+  9. {c |} {res}     01 {txt}{c |} {res}320380 {txt}{c |} {res}3671905 {txt}{c |} {res}    824950 {txt}{c |} {res}    .22 {txt}{c |}
+ 10. {c |} {res}     01 {txt}{c |} {res}240110 {txt}{c |} {res}3671905 {txt}{c |} {res}    776817 {txt}{c |} {res}    .21 {txt}{c |}
+     {c LT}{hline 9}{c +}{hline 8}{c +}{hline 9}{c +}{hline 12}{c +}{hline 9}{c RT}
+ 11. {c |} {res}     01 {txt}{c |} {res}460901 {txt}{c |} {res}3671905 {txt}{c |} {res}         . {txt}{c |} {res}      . {txt}{c |}
+ 12. {c |} {res}     01 {txt}{c |} {res}140410 {txt}{c |} {res}3671905 {txt}{c |} {res}         . {txt}{c |} {res}      . {txt}{c |}
+ 13. {c |} {res}     01 {txt}{c |} {res}360311 {txt}{c |} {res}3671905 {txt}{c |} {res}    348638 {txt}{c |} {res}   .095 {txt}{c |}
+ 14. {c |} {res}     01 {txt}{c |} {res}530311 {txt}{c |} {res}3671905 {txt}{c |} {res}    923455 {txt}{c |} {res}    .25 {txt}{c |}
+ 15. {c |} {res}     01 {txt}{c |} {res}170210 {txt}{c |} {res}3671905 {txt}{c |} {res}   2486755 {txt}{c |} {res}    .68 {txt}{c |}
+     {c BLC}{hline 9}{c BT}{hline 8}{c BT}{hline 9}{c BT}{hline 12}{c BT}{hline 9}{c BRC}
+
+{com}.         sort inclass ucc
+{txt}
+{com}.         keep inclass ucc uccmean
+{txt}
+{com}. save tab1
+{txt}file tab1.dta saved
+
+{com}. 
+. reshape wide uccmean, i(ucc) j(inclass) string
+{txt}(note: j = 01 02 03 04 05 06 07 08 09 10)
+
+Data{col 36}long{col 43}->{col 48}wide
+{hline 77}
+Number of obs.                 {res}    5670   {txt}->{res}     567
+{txt}Number of variables            {res}       3   {txt}->{res}      11
+{txt}j variable (10 values)          {res}inclass   {txt}->   (dropped)
+xij variables:
+                                {res}uccmean   {txt}->   {res}uccmean01 uccmean02 ... uccmean10
+{txt}{hline 77}
+
+{com}. save tab2
+{txt}file tab2.dta saved
+
+{com}. 
+. merge ucc using aggfile
+{txt}{p 0 4}
+variable{txt} ucc
+does not uniquely identify observations in
+aggfile.dta
+{p_end}
+
+{com}.         keep if _merge==3
+{txt}(275 observations deleted)
+
+{com}.         drop _merge
+{txt}
+{com}.         sort line
+{txt}
+{com}.                 by line, sort: egen Inclass01 = sum(uccmean01)
+{txt}
+{com}.                 by line, sort: egen Inclass02 = sum(uccmean02)
+{txt}
+{com}.                 by line, sort: egen Inclass03 = sum(uccmean03)
+{txt}
+{com}.                 by line, sort: egen Inclass04 = sum(uccmean04)
+{txt}
+{com}.                 by line, sort: egen Inclass05 = sum(uccmean05)
+{txt}
+{com}.                 by line, sort: egen Inclass06 = sum(uccmean06)
+{txt}
+{com}.                 by line, sort: egen Inclass07 = sum(uccmean07)
+{txt}
+{com}.                 by line, sort: egen Inclass08 = sum(uccmean08)
+{txt}
+{com}.                 by line, sort: egen Inclass09 = sum(uccmean09)
+{txt}
+{com}.                 by line, sort: egen Inclass10 = sum(uccmean10)
+{txt}
+{com}.         drop ucc uccmean*
+{txt}
+{com}.         duplicates drop line, force
+
+{p 0 4}{txt}Duplicates in terms of {res} line{p_end}
+
+{txt}(912 observations deleted)
+
+{com}. save tab
+{txt}file tab.dta saved
+
+{com}. 
+. use lblfile
+{txt}
+{com}. merge line using tab
+{txt}
+{com}.         keep if _merge==3
+{txt}(13 observations deleted)
+
+{com}.                 format Inclass01 %10.2fc
+{txt}
+{com}.                 format Inclass02 %10.2fc
+{txt}
+{com}.                 format Inclass03 %10.2fc
+{txt}
+{com}.                 format Inclass04 %10.2fc
+{txt}
+{com}.                 format Inclass05 %10.2fc
+{txt}
+{com}.                 format Inclass06 %10.2fc
+{txt}
+{com}.                 format Inclass07 %10.2fc
+{txt}
+{com}.                 format Inclass08 %10.2fc
+{txt}
+{com}.                 format Inclass09 %10.2fc
+{txt}
+{com}.                 format Inclass10 %10.2fc
+{txt}
+{com}.                 label variable Inclass01 "Less than $5,000"
+{txt}
+{com}.                 label variable Inclass02 "$5,000 to $9,999"
+{txt}
+{com}.                 label variable Inclass03 "$10,000 to $14,999"
+{txt}
+{com}.                 label variable Inclass04 "$15,000 to $19,999"
+{txt}
+{com}.                 label variable Inclass05 "$20,000 to $29,000"
+{txt}
+{com}.                 label variable Inclass06 "$30,000 to $39,999"
+{txt}
+{com}.                 label variable Inclass07 "$40,000 to $49,999"
+{txt}
+{com}.                 label variable Inclass08 "$50,000 to $69,999"
+{txt}
+{com}.                 label variable Inclass09 "$70,000 and over"
+{txt}
+{com}.                 label variable Inclass10 "Incomplete Reporters"
+{txt}
+{com}.                 label variable title "Item"
+{txt}
+{com}.         drop line _merge
+{txt}
+{com}. save DiaryTable
+{txt}file DiaryTable.dta saved
+
+{com}. 
+. outsheet  title Inclass01 Inclass02 Inclass03 Inclass04 Inclass05 ///
+>                 Inclass06 Inclass07 Inclass08 Inclass09 Inclass10 ///
+>           using DiaryTable, noquote
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. exit, clear

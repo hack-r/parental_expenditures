@@ -1,0 +1,468 @@
+title	Inclass01	Inclass02	Inclass03	Inclass04	Inclass05	Inclass06	Inclass07	Inclass08	Inclass09	Inclass10
+Income before taxes	3077.74	7782.28	12479.86	17310.95	24600.12	34590.74	45364.55	60082.65	130375.58	62755.24
+Meals as pay	0.03	1.00	0.26	0.54	0.87	1.18	8.35	0.52	1.12	1.61
+Rent as pay	3.33	16.07	2.30	1.22	6.91	2.83	0.68	0.27	1.79	2.83
+Income before taxes	3074.37	7765.22	12477.30	17309.19	24592.35	34586.73	45355.52	60081.86	130372.66	62750.81
+Income after taxes	3125.80	7976.57	12691.33	17576.13	24773.38	34729.29	45581.01	59101.74	125891.80	61342.80
+Meals as pay	0.03	1.00	0.26	0.54	0.87	1.18	8.35	0.52	1.12	1.61
+Rent as pay	3.33	16.07	2.30	1.22	6.91	2.83	0.68	0.27	1.79	2.83
+Income after taxes	3122.43	7959.51	12688.77	17574.37	24765.61	34725.27	45571.98	59100.95	125888.89	61338.36
+Age of reference person	44.14	47.91	54.43	53.85	52.76	49.19	48.81	47.56	47.84	49.40
+Persons	1.59	1.72	1.67	1.96	2.16	2.39	2.60	2.70	3.10	2.52
+Children under 18	0.28	0.41	0.36	0.48	0.50	0.61	0.69	0.67	0.82	0.63
+Persons 65 and older	0.19	0.31	0.43	0.42	0.48	0.39	0.33	0.28	0.21	0.32
+Earners	0.47	0.45	0.42	0.60	0.81	1.04	1.27	1.48	1.88	1.24
+Vehicles (owned)	0.84	0.80	0.88	1.02	1.28	1.44	1.62	1.77	2.30	1.64
+Male	41.63	38.74	31.99	35.55	40.59	45.70	45.68	47.73	53.76	45.80
+Female	58.37	61.26	68.01	64.45	59.41	54.30	54.32	52.27	46.24	54.20
+Homeowner	37.16	35.66	45.98	48.78	55.70	60.84	64.73	69.61	85.07	65.74
+With mortgage	14.66	11.35	12.61	16.49	22.72	26.11	35.92	45.64	67.30	39.65
+Without mortgage	17.23	19.65	27.47	25.57	25.13	26.13	23.01	17.21	15.19	20.54
+Mortgage not reported	5.26	4.66	5.90	6.72	7.85	8.61	5.80	6.77	2.59	5.55
+Renter	62.84	64.34	54.02	51.22	44.30	39.16	35.27	30.39	14.93	34.26
+Black or African-American	17.09	26.00	17.74	16.42	12.53	10.84	13.90	12.63	7.29	12.19
+White, Asian, and all other races	82.91	74.00	82.26	83.58	87.47	89.16	86.10	87.37	92.71	87.81
+White	77.82	69.44	77.12	78.78	82.77	84.25	80.73	82.43	86.09	82.35
+Asian	4.67	2.93	3.40	1.80	2.87	3.42	2.64	3.20	5.24	3.70
+All other races	0.41	1.63	1.73	2.99	1.84	1.49	2.74	1.74	1.38	1.75
+Hispanic or Latino	12.41	12.03	10.48	16.46	14.16	16.55	11.60	12.41	8.50	11.94
+Not Hispanic or Latino	87.59	87.97	89.52	83.54	85.84	83.45	88.40	87.59	91.50	88.06
+Elementary (1-8)	5.66	9.38	8.59	7.15	7.17	5.76	3.87	3.23	1.79	4.59
+High school (9-12)	34.41	40.62	52.30	47.97	48.58	41.40	38.93	28.71	18.83	34.21
+College	58.93	49.80	38.87	44.10	43.84	52.79	56.91	67.85	79.33	60.97
+Never attended and other	0.99	0.19	0.23	0.78	0.41	0.05	0.29	0.21	0.05	0.24
+At least one vehicle owned	57.95	61.60	64.16	71.07	77.66	82.05	86.07	88.24	94.26	83.05
+Food	60.85	56.82	58.50	68.26	74.01	88.96	100.55	112.66	163.32	108.88
+Food at home	39.36	41.58	42.96	48.44	53.51	57.79	64.64	70.09	96.88	68.86
+Cereals and bakery products	5.55	5.81	5.90	6.80	7.73	8.16	8.57	9.74	13.68	9.65
+Cereals and cereal products	1.91	1.99	1.82	2.28	2.63	2.74	2.78	3.24	4.41	3.17
+Flour	0.11	0.07	0.12	0.12	0.12	0.12	0.16	0.15	0.21	0.15
+Prepared flour mixes	0.12	0.21	0.18	0.18	0.20	0.18	0.26	0.32	0.45	0.29
+Ready-to-eat and cooked cereals	0.90	0.90	0.93	1.09	1.40	1.44	1.40	1.53	2.25	1.59
+Rice	0.48	0.40	0.24	0.39	0.42	0.48	0.38	0.52	0.59	0.48
+Pasta, cornmeal and other cereal products	0.29	0.41	0.35	0.50	0.50	0.53	0.58	0.73	0.91	0.65
+Bakery products	3.64	3.82	4.08	4.52	5.10	5.41	5.79	6.50	9.28	6.48
+Bread	1.22	1.25	1.30	1.43	1.55	1.67	1.79	1.99	2.56	1.91
+White bread	0.55	0.55	0.53	0.64	0.70	0.71	0.75	0.81	0.93	0.77
+Bread, other than white	0.67	0.70	0.76	0.79	0.85	0.97	1.04	1.19	1.63	1.15
+Cookies and crackers	0.78	1.09	0.93	1.04	1.25	1.37	1.28	1.46	2.36	1.58
+Cookies	0.36	0.66	0.50	0.51	0.70	0.81	0.70	0.83	1.32	0.88
+Crackers	0.42	0.43	0.43	0.53	0.55	0.56	0.58	0.63	1.04	0.70
+Frozen and refrigerated bakery products	0.29	0.24	0.23	0.29	0.40	0.35	0.44	0.47	0.74	0.48
+Other bakery products	1.36	1.24	1.63	1.76	1.89	2.02	2.28	2.58	3.61	2.50
+Biscuits and rolls	0.51	0.40	0.51	0.53	0.72	0.72	0.88	0.99	1.40	0.94
+Cakes and cupcakes	0.39	0.26	0.54	0.59	0.47	0.47	0.57	0.70	1.00	0.68
+Bread and cracker products	0.09	0.10	0.08	0.07	0.14	0.11	0.12	0.14	0.21	0.14
+Sweetrolls, coffee cakes, doughnuts	0.18	0.24	0.27	0.36	0.35	0.47	0.42	0.41	0.55	0.43
+Pies, tarts, turnovers	0.18	0.23	0.22	0.21	0.20	0.25	0.29	0.34	0.45	0.31
+Meats, poultry, fish, and eggs	8.32	10.07	9.70	11.33	11.75	12.63	14.79	15.65	20.55	15.08
+Beef	1.97	2.73	2.45	3.00	3.09	3.25	4.36	4.53	5.76	4.17
+Ground beef	0.94	1.40	1.12	1.35	1.44	1.45	1.80	1.79	1.91	1.63
+Roast	0.13	0.26	0.26	0.42	0.41	0.46	0.52	0.50	0.90	0.57
+Chuck roast	0.08	0.07	0.05	0.14	0.13	0.19	0.15	0.15	0.19	0.15
+Round roast	0.02	0.09	0.03	0.05	0.08	0.07	0.15	0.08	0.18	0.11
+Other roast	0.03	0.10	0.18	0.23	0.20	0.21	0.22	0.27	0.53	0.30
+Steak	0.76	0.73	0.78	0.96	0.97	1.07	1.65	1.73	2.43	1.58
+Round steak	0.14	0.26	0.10	0.19	0.25	0.24	0.28	0.49	0.47	0.34
+Sirloin steak	0.17	0.27	0.17	0.26	0.20	0.30	0.43	0.30	0.72	0.41
+Other steak	0.46	0.20	0.51	0.51	0.53	0.53	0.94	0.94	1.24	0.83
+Other beef	0.14	0.34	0.29	0.26	0.26	0.27	0.39	0.50	0.52	0.39
+Pork	1.93	1.63	1.89	2.15	2.47	2.42	3.12	3.01	3.67	2.87
+Bacon	0.41	0.40	0.50	0.48	0.54	0.51	0.60	0.66	0.75	0.61
+Pork chops	0.37	0.29	0.25	0.42	0.42	0.40	0.53	0.48	0.55	0.46
+Ham	0.28	0.25	0.39	0.47	0.52	0.52	0.80	0.62	0.78	0.61
+Ham, not canned	0.25	0.25	0.36	0.45	0.51	0.52	0.78	0.61	0.77	0.60
+Canned ham	0.03	0.00	0.03	0.02	0.01	0.00	0.02	0.01	0.01	0.01
+Sausage	0.33	0.32	0.32	0.43	0.51	0.38	0.51	0.52	0.63	0.50
+Other pork	0.53	0.38	0.43	0.35	0.48	0.61	0.68	0.73	0.96	0.68
+Other meats	1.20	1.44	1.43	1.73	1.63	1.89	2.03	2.47	3.12	2.25
+Frankfurters	0.29	0.32	0.34	0.37	0.38	0.45	0.48	0.44	0.62	0.47
+Lunch meats (cold cuts)	0.80	0.88	0.98	1.21	1.16	1.29	1.34	1.71	2.24	1.57
+Bologna, liverwurst, salami	0.22	0.37	0.31	0.39	0.40	0.42	0.43	0.56	0.61	0.48
+Other lunchmeats	0.58	0.51	0.68	0.82	0.76	0.87	0.92	1.15	1.63	1.09
+Lamb, organ meats and others	0.10	0.25	0.11	0.15	0.08	0.15	0.20	0.33	0.27	0.21
+Lamb and organ meats	0.10	0.25	0.08	0.14	0.08	0.14	0.18	0.18	0.20	0.16
+Mutton, goat and game	0.00	0.00	0.03	0.01	0.00	0.01	0.02	0.15	0.07	0.05
+Poultry	1.47	1.91	1.91	2.19	2.17	2.33	2.53	2.67	3.50	2.66
+Fresh and frozen chickens	1.20	1.73	1.58	1.94	1.71	1.84	2.06	2.11	2.72	2.12
+Fresh and frozen whole chicken	0.26	0.56	0.45	0.48	0.48	0.52	0.55	0.56	0.71	0.57
+Fresh and frozen chicken parts	0.94	1.16	1.13	1.46	1.23	1.32	1.51	1.55	2.01	1.55
+Other poultry	0.27	0.18	0.34	0.25	0.46	0.49	0.47	0.56	0.78	0.54
+Fish and seafood	1.05	1.75	1.35	1.53	1.62	1.88	1.94	2.07	3.38	2.25
+Canned fish and seafood	0.24	0.38	0.22	0.28	0.32	0.33	0.34	0.39	0.53	0.39
+Fresh fish and shellfish	0.48	0.71	0.54	0.62	0.68	0.82	0.82	1.00	1.74	1.06
+Frozen fish and shellfish	0.33	0.65	0.59	0.63	0.63	0.73	0.78	0.69	1.11	0.80
+Eggs	0.71	0.60	0.66	0.74	0.77	0.85	0.80	0.90	1.12	0.89
+Dairy products	4.33	4.32	4.25	4.87	5.70	5.88	6.70	7.45	10.57	7.32
+Fresh milk and cream	1.74	1.67	1.76	2.13	2.26	2.35	2.50	2.77	3.64	2.71
+Fresh milk, all types	1.57	1.47	1.57	1.84	1.97	2.03	2.17	2.40	3.07	2.33
+Cream	0.17	0.20	0.19	0.29	0.29	0.32	0.32	0.37	0.57	0.38
+Other dairy products	2.59	2.65	2.49	2.75	3.44	3.53	4.20	4.68	6.92	4.61
+Butter	0.26	0.27	0.24	0.31	0.36	0.34	0.39	0.40	0.66	0.44
+Cheese	1.29	1.26	1.19	1.37	1.52	1.70	2.12	2.22	3.37	2.22
+Ice cream and related products	0.53	0.60	0.63	0.59	0.85	0.83	0.99	1.13	1.48	1.04
+Miscellaneous dairy products	0.50	0.51	0.42	0.48	0.71	0.65	0.70	0.93	1.41	0.90
+Fruits and vegetables	7.33	7.34	7.92	8.77	10.21	11.26	11.33	12.74	19.07	13.07
+Fresh fruits	2.41	2.25	2.54	2.92	3.55	3.63	3.46	4.13	6.92	4.47
+Apples	0.40	0.37	0.44	0.43	0.51	0.58	0.54	0.71	1.12	0.72
+Bananas	0.40	0.41	0.50	0.64	0.67	0.73	0.62	0.78	1.09	0.79
+Oranges	0.23	0.28	0.29	0.42	0.46	0.37	0.45	0.42	0.66	0.48
+Citrus fruits, excluding oranges	0.38	0.37	0.34	0.35	0.47	0.56	0.50	0.56	0.90	0.60
+Other fresh fruits	1.01	0.81	0.97	1.08	1.43	1.39	1.36	1.66	3.15	1.88
+Fresh vegetables	2.36	2.34	2.46	2.71	3.07	3.54	3.60	3.97	5.86	4.05
+Potatoes	0.35	0.46	0.52	0.44	0.51	0.70	0.57	0.74	0.95	0.69
+Lettuce	0.30	0.39	0.34	0.38	0.49	0.52	0.51	0.59	0.80	0.58
+Tomatoes	0.39	0.45	0.42	0.58	0.65	0.69	0.76	0.72	1.03	0.76
+Other fresh vegetables	1.32	1.05	1.19	1.30	1.42	1.63	1.76	1.93	3.08	2.02
+Processed fruits	1.28	1.27	1.29	1.50	1.57	1.88	1.96	2.20	3.12	2.17
+Frozen fruits and fruit juices	0.09	0.16	0.13	0.18	0.15	0.22	0.20	0.25	0.38	0.25
+Frozen orange juice	0.03	0.05	0.03	0.05	0.05	0.06	0.07	0.05	0.11	0.07
+Frozen fruits	0.06	0.07	0.08	0.09	0.07	0.13	0.07	0.14	0.20	0.13
+Frozen fruit juices	0.00	0.04	0.03	0.04	0.03	0.04	0.06	0.05	0.07	0.05
+Canned fruits	0.26	0.23	0.24	0.27	0.31	0.30	0.37	0.39	0.57	0.39
+Dried fruit	0.04	0.10	0.08	0.09	0.09	0.13	0.13	0.15	0.26	0.16
+Fresh fruit juice	0.21	0.20	0.23	0.26	0.29	0.32	0.30	0.37	0.54	0.37
+Canned and bottled fruit juice	0.68	0.58	0.61	0.70	0.74	0.91	0.95	1.05	1.37	1.00
+Processed vegetables	1.28	1.48	1.64	1.64	2.01	2.22	2.31	2.44	3.16	2.38
+Frozen vegetables	0.32	0.39	0.47	0.43	0.54	0.62	0.85	0.67	0.93	0.70
+Canned and dried vegetables and juices	0.96	1.08	1.17	1.21	1.46	1.60	1.46	1.77	2.23	1.69
+Canned beans	0.25	0.24	0.22	0.22	0.28	0.31	0.29	0.33	0.45	0.33
+Canned corn	0.07	0.11	0.13	0.11	0.18	0.15	0.18	0.22	0.22	0.18
+Canned miscellaneous vegetables	0.24	0.23	0.32	0.33	0.46	0.41	0.45	0.52	0.68	0.50
+Dried peas	0.02	0.00	0.00	0.01	0.01	0.02	0.01	0.03	0.02	0.01
+Dried beans	0.07	0.12	0.07	0.10	0.09	0.11	0.07	0.11	0.10	0.10
+Dried miscellaneous vegetables	0.15	0.19	0.19	0.17	0.17	0.25	0.17	0.24	0.32	0.24
+Dried processed vegetables	0.02	0.01	0.02	0.04	0.03	0.04	0.03	0.03	0.04	0.03
+Frozen vegetable juices	0.01	0.01	0.01	0.00	0.00	0.00	0.00	0.01	0.01	0.00
+Fresh and canned vegetable juices	0.13	0.18	0.21	0.23	0.24	0.30	0.25	0.29	0.38	0.29
+Other food at home	13.82	14.04	15.19	16.67	18.13	19.86	23.25	24.50	33.01	23.74
+Sugar and other sweets	1.44	1.66	1.58	1.77	2.01	2.03	2.39	2.63	3.56	2.54
+Candy and chewing gum	0.71	0.74	0.87	0.92	1.17	1.00	1.43	1.61	2.20	1.49
+Sugar	0.43	0.37	0.33	0.40	0.38	0.45	0.42	0.43	0.51	0.44
+Artificial sweeteners	0.03	0.08	0.11	0.11	0.09	0.12	0.11	0.11	0.11	0.10
+Jams, preserves, other sweets	0.27	0.47	0.28	0.34	0.37	0.46	0.43	0.48	0.74	0.51
+Fats and oils	1.16	1.27	1.28	1.50	1.62	1.66	2.00	1.99	2.65	1.97
+Margarine	0.12	0.15	0.15	0.12	0.18	0.17	0.24	0.17	0.23	0.19
+Fats and oils	0.34	0.52	0.41	0.60	0.56	0.48	0.62	0.57	0.77	0.61
+Salad dressings	0.30	0.31	0.33	0.37	0.39	0.49	0.55	0.60	0.77	0.55
+Nondairy cream and imitation milk	0.17	0.11	0.21	0.25	0.28	0.28	0.30	0.36	0.44	0.33
+Peanut butter	0.23	0.18	0.19	0.17	0.20	0.23	0.29	0.30	0.43	0.30
+Miscellaneous foods	7.30	7.22	7.99	8.93	9.29	10.34	12.34	13.24	18.36	12.82
+Frozen prepared foods	1.47	1.13	1.81	2.06	2.07	2.27	2.46	2.61	3.39	2.54
+Frozen meals	0.60	0.50	0.80	0.96	1.04	0.86	1.20	1.20	1.59	1.17
+Other frozen prepared foods	0.87	0.63	1.01	1.10	1.03	1.41	1.26	1.40	1.80	1.37
+Canned and packaged soups	0.52	0.49	0.58	0.54	0.70	0.63	0.76	0.79	1.14	0.81
+Potato chips, nuts, and other snacks	1.22	1.32	1.49	1.47	1.69	2.00	2.31	2.57	3.97	2.56
+Potato chips and other snacks	1.07	1.02	1.04	1.06	1.31	1.55	1.73	1.96	2.90	1.91
+Nuts	0.15	0.30	0.45	0.41	0.39	0.45	0.57	0.60	1.06	0.65
+Condiments and seasonings	1.31	1.43	1.47	1.74	1.60	2.00	2.20	2.60	3.51	2.42
+Salt, spices, other seasonings	0.44	0.53	0.38	0.42	0.43	0.55	0.52	0.65	0.89	0.62
+Olives, pickles, relishes	0.16	0.14	0.20	0.27	0.19	0.20	0.23	0.30	0.43	0.29
+Sauces and gravies	0.45	0.51	0.59	0.67	0.62	0.82	1.03	1.14	1.46	1.01
+Baking needs and miscellaneous products	0.26	0.26	0.30	0.38	0.36	0.43	0.43	0.52	0.74	0.50
+Other canned and packaged prepared foods	2.78	2.85	2.64	3.12	3.23	3.45	4.61	4.68	6.36	4.49
+Prepared salads	0.46	0.23	0.37	0.43	0.44	0.53	0.64	0.71	1.04	0.68
+Prepared desserts	0.21	0.27	0.25	0.27	0.23	0.28	0.26	0.29	0.45	0.32
+Baby food	0.14	0.52	0.46	0.54	0.44	0.54	0.81	0.84	0.68	0.62
+Miscellaneous prepared foods	1.97	1.79	1.54	1.86	2.10	2.09	2.90	2.82	4.09	2.82
+Vitamin supplements	0.00	0.03	0.01	0.02	0.02	0.01	0.00	0.02	0.10	0.04
+Nonalcoholic beverages	3.92	3.88	4.34	4.46	5.21	5.84	6.52	6.64	8.45	6.41
+Cola	1.05	0.95	1.18	1.17	1.28	1.51	1.58	1.58	1.68	1.47
+Other carbonated drinks	0.68	0.70	0.88	0.74	0.88	1.03	1.24	1.14	1.31	1.08
+Tea	0.26	0.33	0.31	0.43	0.44	0.48	0.57	0.59	0.77	0.56
+Coffee	0.61	0.77	0.65	0.80	0.87	1.00	1.10	1.18	1.64	1.16
+Roasted coffee	0.41	0.45	0.37	0.40	0.53	0.60	0.68	0.72	1.07	0.72
+Instant and freeze dried coffee	0.20	0.32	0.28	0.39	0.34	0.40	0.42	0.46	0.57	0.44
+Noncarbonated fruit flavored drinks, including	0.40	0.38	0.23	0.34	0.39	0.37	0.48	0.46	0.63	0.47
+Other noncarbonated beverages and ice	0.15	0.18	0.16	0.16	0.25	0.26	0.26	0.26	0.43	0.29
+Bottled water	0.58	0.43	0.74	0.67	0.79	0.85	0.96	1.00	1.41	1.00
+Sports drinks	0.19	0.14	0.19	0.14	0.30	0.31	0.32	0.42	0.54	0.37
+Nonalcoholic beer	0.00	0.00	0.00	0.00	0.01	0.03	0.00	0.01	0.03	0.02
+Food away from home	21.49	15.24	15.54	19.82	20.50	31.18	35.91	42.57	66.43	40.02
+Meals at restaurants (except on trips)	21.49	15.24	15.54	19.82	20.50	31.18	35.91	42.57	66.43	40.02
+Lunch	6.93	5.69	6.29	7.79	7.42	11.17	12.57	14.74	22.66	13.97
+Lunch at fast food, take-out, delivery, concession	3.33	3.45	3.45	4.08	4.11	5.47	6.67	7.26	10.21	6.76
+Lunch at full service restaurants	2.23	1.85	2.46	3.03	2.62	4.09	4.58	5.26	9.61	5.48
+Lunch at vending machines and mobile vendors	0.10	0.05	0.04	0.09	0.11	0.17	0.20	0.17	0.20	0.15
+Lunch at employer and school cafeterias	1.27	0.35	0.34	0.59	0.59	1.45	1.12	2.05	2.65	1.58
+Dinner	9.58	6.37	6.39	8.55	9.10	13.90	16.73	19.89	32.92	18.98
+Dinner at fast food, take-out, delivery, concession	3.93	2.80	2.84	3.91	3.78	5.22	6.63	7.16	9.44	6.37
+Dinner at full service restaurants	4.91	3.16	3.44	4.59	5.17	8.49	9.89	12.58	23.29	12.41
+Dinner at vending machines and mobile vendors	0.05	0.01	0.02	0.01	0.07	0.08	0.05	0.08	0.05	0.05
+Dinner at employer and school cafeterias	0.70	0.40	0.09	0.04	0.09	0.11	0.16	0.07	0.14	0.14
+Snacks and nonalcoholic beverages	2.06	1.33	1.11	1.30	1.65	2.53	2.48	3.29	4.82	2.99
+Snacks and nonalcoholic beverages at fast food,	1.04	0.92	0.71	0.85	0.98	1.49	1.61	2.26	3.28	1.97
+Snacks and nonalcoholic beverages at full service	0.35	0.17	0.16	0.20	0.32	0.52	0.35	0.59	0.93	0.55
+Snacks and nonalcoholic beverages at vending	0.52	0.19	0.21	0.22	0.28	0.40	0.43	0.34	0.43	0.36
+Snacks and nonalcoholic beverages at employer and	0.15	0.05	0.02	0.04	0.07	0.11	0.09	0.09	0.19	0.11
+Breakfast and brunch	2.92	1.84	1.75	2.17	2.33	3.58	4.12	4.65	6.03	4.08
+Breakfast and brunch at fast food, take-out,	1.34	1.15	1.06	1.26	1.38	1.95	2.16	2.21	3.08	2.13
+Breakfast and brunch at full service restaurants	0.85	0.61	0.62	0.67	0.80	1.42	1.58	2.03	2.52	1.63
+Breakfast and brunch at vending machines and mobile	0.14	0.01	0.01	0.05	0.04	0.04	0.08	0.06	0.09	0.06
+Breakfast and brunch at employer and school	0.59	0.08	0.05	0.19	0.11	0.17	0.31	0.36	0.34	0.26
+Alcoholic beverages	4.28	2.36	2.36	2.95	3.15	5.38	5.77	7.90	12.29	7.10
+At home	2.58	1.38	1.73	2.02	1.77	3.05	3.41	4.76	7.38	4.26
+Beer and ale	1.81	0.81	0.95	1.15	0.88	1.58	1.71	2.52	2.98	1.98
+Whiskey	0.02	0.03	0.12	0.06	0.23	0.17	0.15	0.42	0.31	0.23
+Wine	0.45	0.35	0.58	0.69	0.50	1.02	1.24	1.34	3.50	1.69
+Other alcoholic beverages	0.30	0.20	0.07	0.12	0.17	0.28	0.31	0.48	0.59	0.36
+Away from home	1.70	0.97	0.63	0.93	1.38	2.33	2.36	3.13	4.91	2.84
+Beer and ale	1.02	0.53	0.37	0.39	0.65	1.00	1.19	1.51	1.86	1.21
+Beer and ale at fast food, take-out, delivery,	0.10	0.25	0.12	0.05	0.08	0.17	0.18	0.29	0.29	0.20
+Beer and ale at full service restaurants	0.89	0.28	0.25	0.33	0.57	0.78	1.00	1.21	1.53	0.99
+Beer and ale at vending machines and mobile vendors	0.02	0.00	0.00	0.00	0.01	0.04	0.01	0.01	0.03	0.02
+Beer at employer	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+Wine	0.15	0.10	0.12	0.25	0.21	0.45	0.35	0.59	1.33	0.64
+Wine at fast food, take-out, delivery, concession	0.00	0.00	0.00	0.01	0.02	0.04	0.04	0.04	0.10	0.05
+Wine at full service restaurants	0.15	0.10	0.12	0.24	0.20	0.41	0.31	0.55	1.23	0.59
+Wine at vending machines and mobile vendors	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+Other alcoholic beverages	0.53	0.34	0.13	0.30	0.51	0.89	0.82	1.04	1.72	0.99
+Other alcoholic beverages at fast food, take-out,	0.11	0.07	0.01	0.01	0.05	0.03	0.08	0.19	0.14	0.10
+Other alcoholic beverages at full service restaurants	0.42	0.27	0.12	0.29	0.46	0.85	0.74	0.85	1.58	0.89
+Other alcoholic beverages at vending machines and	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+Other alcohol at employer	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+Housing	47.01	44.98	50.17	55.58	65.13	68.23	80.03	91.86	119.66	84.60
+Fuel and utilities	35.20	33.13	39.15	42.51	50.88	49.55	59.85	68.69	76.46	59.55
+Electricity and natural gas	24.24	20.72	23.79	24.68	27.95	27.07	32.07	35.48	40.91	32.44
+Electricity	18.32	15.68	19.07	21.36	22.31	21.43	23.43	26.09	30.34	24.66
+Natural gas	5.92	5.04	4.72	3.32	5.64	5.64	8.65	9.39	10.57	7.78
+Fuel oil and other fuels	2.46	2.05	2.86	2.05	4.97	4.66	2.66	5.66	6.99	4.89
+Fuel oil	0.31	0.15	1.47	0.39	2.29	2.63	0.98	2.80	3.89	2.43
+Bottled and tank gas	1.30	1.39	0.73	1.35	1.56	1.20	0.93	1.82	1.50	1.39
+Coal	0.00	0.00	0.00	0.00	0.09	0.00	0.00	0.00	0.03	0.02
+Miscellaneous fuels	0.84	0.52	0.66	0.31	1.04	0.83	0.75	1.04	1.57	1.05
+Telephone services	8.50	10.35	12.50	15.78	17.95	17.82	25.11	27.55	28.56	22.22
+Household operations	0.00	0.00	0.00	0.00	0.00	0.46	0.02	0.31	0.01	0.11
+Other household expenses	0.00	0.00	0.00	0.00	0.00	0.46	0.02	0.31	0.01	0.11
+Repair of miscellaneous household equipment and	0.00	0.00	0.00	0.00	0.00	0.46	0.02	0.31	0.01	0.11
+Housekeeping supplies	5.69	6.41	6.60	7.03	8.21	8.43	10.49	11.41	18.56	11.76
+Laundry and cleaning supplies	2.20	2.05	1.93	1.88	2.26	2.32	2.78	2.90	4.01	2.89
+Soaps and detergents	1.14	1.12	1.16	1.12	1.33	1.28	1.56	1.64	2.06	1.58
+Other laundry cleaning products	1.05	0.93	0.78	0.76	0.93	1.04	1.22	1.26	1.95	1.31
+Other household products	2.56	2.54	3.36	3.73	4.39	4.38	5.60	6.17	10.28	6.33
+Cleansing and toilet tissue, paper towels and napkins	1.31	1.06	1.52	1.67	1.62	1.65	2.08	1.89	2.65	1.99
+Miscellaneous household products	1.01	1.11	1.12	1.26	1.77	1.72	2.09	2.32	4.20	2.49
+Lawn and garden supplies	0.24	0.36	0.72	0.80	1.00	1.01	1.43	1.96	3.43	1.85
+Postage and stationery	0.93	1.82	1.30	1.42	1.56	1.73	2.11	2.35	4.27	2.54
+Stationery, stationery supplies, giftwrap	0.35	1.03	0.51	0.86	0.84	0.88	1.02	1.28	2.51	1.41
+Postage	0.56	0.78	0.76	0.56	0.71	0.77	1.07	1.02	1.65	1.08
+Delivery services	0.02	0.01	0.03	0.00	0.01	0.08	0.02	0.05	0.11	0.06
+Household furnishings and equipment	6.12	5.45	4.42	6.05	6.05	9.79	9.68	11.44	24.63	13.18
+Household textiles	0.39	1.10	0.70	0.81	0.81	0.69	0.85	1.19	2.61	1.40
+Bathroom linens	0.18	0.42	0.19	0.22	0.33	0.23	0.22	0.33	0.56	0.36
+Bedroom linens	0.19	0.68	0.50	0.52	0.37	0.37	0.51	0.72	1.75	0.88
+Kitchen and dining room linens	0.02	0.01	0.01	0.06	0.10	0.08	0.10	0.06	0.22	0.11
+Slipcovers, decorative pillows	0.00	0.00	0.00	0.02	0.01	0.01	0.02	0.08	0.08	0.04
+Furniture	0.86	0.00	0.13	0.64	0.09	0.38	0.66	0.26	0.89	0.51
+Outdoor furniture	0.86	0.00	0.13	0.64	0.09	0.38	0.66	0.26	0.89	0.51
+Floor coverings	0.28	0.19	0.13	0.50	0.16	0.19	0.27	0.37	1.50	0.64
+Room size rugs and other floor covering, nonpermanent	0.28	0.19	0.13	0.50	0.16	0.19	0.27	0.37	1.50	0.64
+Major appliances	0.26	0.32	0.07	0.48	0.14	0.74	0.67	0.94	1.38	0.79
+Electric floor cleaning equipment	0.20	0.32	0.07	0.19	0.11	0.43	0.44	0.87	0.93	0.56
+Sewing machines	0.00	0.00	0.00	0.29	0.00	0.16	0.00	0.00	0.09	0.07
+Miscellaneous household appliances	0.06	0.00	0.00	0.00	0.03	0.15	0.23	0.07	0.35	0.16
+Small appliances, miscellaneous housewares	0.39	0.60	0.51	0.61	0.66	1.88	1.03	1.47	2.44	1.48
+Housewares	0.34	0.53	0.46	0.59	0.52	0.90	0.60	1.08	2.06	1.12
+China and other dinnerware	0.02	0.01	0.02	0.03	0.02	0.17	0.11	0.11	0.29	0.14
+Glassware	0.03	0.02	0.06	0.16	0.10	0.13	0.14	0.29	0.30	0.19
+Silver serving pieces	0.01	0.00	0.01	0.02	0.01	0.02	0.01	0.01	0.04	0.02
+Nonelectric cookware	0.16	0.04	0.27	0.25	0.18	0.26	0.09	0.25	0.55	0.31
+Tableware, nonelectric kitchenware	0.13	0.45	0.09	0.12	0.20	0.33	0.24	0.41	0.88	0.45
+Small appliances	0.05	0.07	0.06	0.03	0.15	0.99	0.44	0.39	0.38	0.36
+Portable heating and cooling equipment	0.05	0.07	0.06	0.03	0.15	0.99	0.44	0.39	0.38	0.36
+Miscellaneous household equipment	3.94	3.23	2.90	3.01	4.17	5.91	6.20	7.22	15.81	8.37
+Infants' equipment	0.13	0.01	0.02	0.49	0.12	0.19	0.23	0.22	0.61	0.32
+Laundry and cleaning equipment	0.29	0.20	0.15	0.16	0.30	0.33	0.32	0.34	0.48	0.34
+Outdoor equipment	0.55	0.09	0.03	0.25	0.35	0.16	0.39	0.50	1.48	0.67
+Lamps and lighting fixtures	0.24	0.17	0.04	0.02	0.18	0.22	0.35	0.33	0.89	0.42
+Clocks and other household decorative items	0.62	1.16	0.53	0.62	0.68	1.74	0.92	1.43	3.99	1.95
+Telephones and accessories	0.42	0.10	0.16	0.33	0.15	0.33	0.66	0.71	1.14	0.63
+Lawn and garden equipment	0.06	0.08	0.42	0.14	0.53	0.68	0.86	0.44	1.23	0.71
+Power tools	0.76	0.28	0.32	0.18	0.51	0.77	0.52	0.97	1.10	0.75
+Hand tools	0.23	0.11	0.09	0.04	0.26	0.26	0.13	0.29	0.41	0.26
+Indoor plants, fresh flowers	0.21	0.28	0.44	0.35	0.33	0.41	0.76	0.60	1.62	0.82
+Closet and storage items	0.11	0.18	0.12	0.06	0.10	0.12	0.26	0.31	0.60	0.30
+Other hardware	0.00	0.12	0.05	0.04	0.11	0.14	0.24	0.24	0.64	0.30
+Miscellaneous household equipment and parts	0.21	0.25	0.30	0.33	0.52	0.48	0.35	0.74	1.05	0.65
+Luggage	0.11	0.22	0.23	0.01	0.03	0.06	0.21	0.08	0.56	0.24
+Apparel and services	10.21	16.79	9.19	14.33	18.74	20.66	22.23	25.21	44.08	26.72
+Men and boys	2.45	2.92	1.55	2.96	4.34	3.96	4.53	5.26	10.90	6.05
+Men, 16 and over	2.00	1.80	1.29	2.44	3.68	3.30	3.86	4.50	9.76	5.26
+Men's sportcoats, tailored jackets	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.06	0.02
+Men's coats and jackets	0.58	0.00	0.15	0.18	0.64	0.26	0.28	0.53	1.09	0.59
+Men's underwear	0.15	0.27	0.08	0.08	0.19	0.33	0.33	0.34	0.59	0.35
+Men's hosiery	0.10	0.04	0.11	0.15	0.19	0.25	0.23	0.16	0.41	0.25
+Men's accessories	0.30	0.16	0.06	0.20	0.56	0.23	0.52	0.59	1.07	0.60
+Men's sweaters and vests	0.00	0.02	0.07	0.06	0.14	0.12	0.26	0.07	0.48	0.23
+Men's active sportswear	0.00	0.00	0.01	0.32	0.15	0.19	0.16	0.38	0.85	0.39
+Men's shirts	0.20	0.40	0.31	0.55	1.02	1.09	0.88	1.36	2.93	1.52
+Men's pants and shorts	0.67	0.80	0.50	0.92	0.77	0.78	1.18	0.91	2.25	1.27
+Men's uniforms	0.00	0.12	0.00	0.00	0.02	0.06	0.01	0.17	0.01	0.04
+Boys, 2 to 15	0.45	1.12	0.26	0.52	0.66	0.67	0.67	0.76	1.14	0.80
+Boys' shirts	0.18	0.82	0.12	0.24	0.39	0.28	0.36	0.38	0.53	0.40
+Boys' underwear	0.06	0.09	0.07	0.08	0.10	0.19	0.07	0.13	0.16	0.13
+Boys' nightwear	0.09	0.00	0.00	0.01	0.03	0.02	0.05	0.03	0.07	0.04
+Boys' hosiery	0.09	0.06	0.02	0.04	0.08	0.09	0.07	0.11	0.17	0.10
+Boys' accessories	0.03	0.15	0.04	0.14	0.06	0.08	0.11	0.10	0.13	0.10
+Boys' suits, sportcoats, vests	0.00	0.00	0.01	0.00	0.00	0.01	0.01	0.00	0.08	0.03
+Women and girls	4.04	7.90	3.95	5.62	7.51	9.69	9.66	12.73	19.46	11.94
+Women, 16 and over	3.04	7.04	3.47	4.58	6.54	8.54	8.71	11.62	17.21	10.57
+Women's coats and jackets	0.20	0.59	0.22	0.25	0.61	0.87	0.67	0.52	1.13	0.73
+Women's dresses	0.20	0.51	0.09	0.44	0.92	1.01	1.47	3.05	2.16	1.56
+Women's sportcoats, tailored jackets	0.00	0.13	0.00	0.00	0.00	0.01	0.00	0.00	0.13	0.05
+Women's vests and sweaters	0.13	0.32	0.36	0.28	0.29	0.62	0.38	0.50	1.49	0.73
+Women's shirts, tops, blouses	0.91	2.70	0.72	0.80	1.37	1.72	1.81	2.23	3.79	2.28
+Women's skirts	0.07	0.05	0.04	0.04	0.09	0.11	0.22	0.22	0.27	0.17
+Women's pants and shorts	0.63	1.17	0.76	1.38	0.89	1.25	1.43	1.61	2.90	1.73
+Women's active sportswear	0.01	0.32	0.13	0.33	0.23	0.34	0.28	0.35	1.24	0.57
+Women's sleepwear	0.31	0.24	0.10	0.10	0.51	0.31	0.36	0.36	0.55	0.39
+Women's undergarments	0.10	0.33	0.38	0.28	0.52	0.69	0.40	0.83	1.05	0.69
+Women's hosiery	0.12	0.29	0.16	0.18	0.29	0.36	0.45	0.32	0.61	0.40
+Women's accessories	0.38	0.40	0.52	0.52	0.73	1.24	1.16	1.56	1.75	1.22
+Women's uniforms	0.00	0.00	0.00	0.00	0.08	0.03	0.07	0.08	0.14	0.07
+Girls, 2 to 15	0.99	0.85	0.48	1.04	0.97	1.16	0.95	1.11	2.25	1.37
+Girls' coats and jackets	0.04	0.05	0.01	0.16	0.09	0.16	0.01	0.06	0.09	0.08
+Girls' dresses and suits	0.27	0.10	0.06	0.11	0.11	0.22	0.13	0.16	0.48	0.25
+Girls' shirts, blouses, sweaters	0.16	0.57	0.25	0.42	0.38	0.32	0.46	0.48	0.74	0.50
+Girls' active sportswear	0.16	0.00	0.07	0.07	0.11	0.14	0.11	0.17	0.36	0.19
+Girls' underwear and sleepwear	0.16	0.10	0.06	0.23	0.12	0.14	0.17	0.10	0.26	0.17
+Girls' hosiery	0.12	0.02	0.01	0.04	0.10	0.09	0.03	0.08	0.16	0.09
+Girls' accessories	0.09	0.01	0.02	0.01	0.07	0.08	0.03	0.07	0.16	0.09
+Children under 2	0.67	1.65	0.79	1.08	1.21	1.92	1.45	1.51	2.36	1.67
+Infant dresses, outerwear	0.09	0.49	0.11	0.24	0.25	0.52	0.19	0.34	0.56	0.38
+Infant underwear	0.48	0.96	0.59	0.72	0.77	1.07	1.11	0.94	1.40	1.04
+Infant nightwear, loungewear	0.02	0.02	0.00	0.07	0.01	0.06	0.03	0.03	0.10	0.05
+Infant accessories	0.07	0.18	0.09	0.05	0.18	0.26	0.13	0.21	0.30	0.21
+Footwear	2.85	4.09	2.70	3.60	5.36	4.77	5.97	5.36	8.33	5.83
+Men's footwear	1.13	1.67	0.48	1.28	1.99	1.13	2.09	1.90	2.80	1.95
+Boys' footwear	0.24	0.58	0.23	0.52	0.38	0.57	0.98	0.45	0.54	0.53
+Women's footwear	1.16	1.60	1.52	1.39	2.50	2.48	2.34	2.51	4.30	2.81
+Girls' footwear	0.32	0.25	0.47	0.41	0.50	0.59	0.55	0.50	0.69	0.55
+Other apparel products and services	0.20	0.22	0.20	1.07	0.31	0.32	0.63	0.36	3.03	1.22
+Material for making clothes	0.06	0.02	0.03	0.06	0.05	0.11	0.12	0.01	0.14	0.09
+Sewing patterns and notions	0.02	0.13	0.02	0.09	0.06	0.09	0.07	0.12	0.18	0.11
+Watches	0.12	0.07	0.15	0.93	0.20	0.12	0.44	0.23	2.71	1.02
+Transportation	29.20	24.31	29.31	37.51	38.75	49.77	57.98	63.34	84.37	57.94
+Gasoline, motor oil, and additives	18.48	15.69	18.63	21.39	24.02	31.54	35.70	40.19	51.87	35.93
+Gasoline and diesel fuel	18.26	15.46	17.95	21.12	23.72	31.16	35.22	39.80	51.30	35.48
+Gasoline	18.05	15.33	17.32	20.58	23.42	30.62	34.92	38.98	50.61	34.93
+Diesel fuel	0.21	0.13	0.64	0.54	0.29	0.55	0.30	0.82	0.69	0.56
+Motor oil, coolants and other additives	0.22	0.24	0.68	0.27	0.31	0.38	0.47	0.38	0.57	0.44
+Motor oil	0.11	0.04	0.39	0.13	0.22	0.26	0.33	0.24	0.37	0.28
+Coolant, brake fluid, transmission fluid, and other	0.10	0.20	0.29	0.14	0.09	0.12	0.15	0.14	0.20	0.16
+Other vehicle expenses	10.48	8.39	10.49	16.03	14.58	17.86	21.93	23.00	31.97	21.70
+Maintenance and repairs	0.84	0.86	1.38	1.57	1.08	1.09	1.26	1.52	3.32	1.88
+Vehicle audio equipment	0.00	0.00	0.05	0.00	0.12	0.16	0.00	0.29	0.10	0.11
+Vehicle products and cleaning services	0.00	0.04	0.26	0.16	0.05	0.08	0.16	0.15	0.25	0.16
+Misc. auto repair, servicing	0.84	0.82	1.07	1.41	0.91	0.85	1.10	1.07	2.97	1.61
+Vehicle insurance	9.40	7.31	8.88	14.32	13.44	16.57	20.40	21.23	27.84	19.43
+Vehicle rental, leases, licenses, and other charges	0.25	0.21	0.23	0.14	0.07	0.20	0.26	0.25	0.81	0.39
+Tolls or electronic toll passes	0.25	0.21	0.23	0.14	0.07	0.20	0.26	0.25	0.81	0.39
+Public transportation	0.25	0.23	0.19	0.09	0.14	0.37	0.36	0.16	0.53	0.32
+Taxi fares and limousine services	0.25	0.23	0.19	0.09	0.14	0.37	0.36	0.16	0.53	0.32
+Health care	1.56	1.26	2.45	2.21	2.52	2.72	3.01	3.12	4.88	3.30
+Medical services	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.01	0.01	0.00
+Repair of medical equipment	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.01	0.01	0.00
+Drugs	1.18	0.92	2.10	1.75	1.76	2.15	2.46	2.53	3.85	2.60
+Nonprescription drugs	0.66	0.52	1.50	1.19	1.32	1.09	1.77	1.83	2.48	1.72
+Nonprescription vitamins	0.52	0.40	0.60	0.57	0.44	1.05	0.68	0.71	1.36	0.88
+Medical supplies	0.38	0.34	0.35	0.46	0.76	0.57	0.55	0.58	1.03	0.70
+Topicals and dressings	0.38	0.34	0.35	0.46	0.76	0.57	0.55	0.58	1.03	0.70
+Entertainment	11.82	10.35	13.27	14.21	17.09	19.77	24.24	27.28	40.18	25.80
+Fees and admissions	0.34	0.81	0.67	0.65	1.30	1.48	2.71	2.65	6.24	3.04
+Fees for participant sports	0.34	0.59	0.59	0.33	0.50	0.91	1.57	1.66	3.24	1.66
+Fees for recreational lessons	0.00	0.22	0.07	0.32	0.80	0.58	1.13	0.99	3.00	1.38
+Audio and visual equipment and services	7.72	5.24	8.13	7.86	8.21	10.09	13.03	13.78	14.36	11.46
+Radios	0.00	0.00	0.00	0.01	0.01	0.00	0.01	0.10	0.12	0.05
+Cable and satellite television services	6.79	4.63	7.76	7.19	7.62	9.58	11.95	12.08	11.77	10.05
+Tape recorders and players	0.07	0.00	0.00	0.02	0.00	0.01	0.08	0.00	0.01	0.02
+Miscellaneous sound equipment	0.00	0.02	0.00	0.00	0.00	0.00	0.02	0.01	0.17	0.06
+Miscellaneous video equipment	0.15	0.00	0.01	0.08	0.03	0.02	0.02	0.09	0.11	0.07
+Sound equipment accessories	0.11	0.10	0.00	0.08	0.03	0.05	0.09	0.16	0.59	0.24
+Video game hardware and software	0.61	0.49	0.36	0.48	0.51	0.44	0.86	1.34	1.57	0.98
+Pets, toys, hobbies, and playground equipment	3.40	3.27	3.67	5.02	5.63	6.42	7.39	8.68	15.49	9.02
+Pets	2.33	1.58	3.30	4.01	4.37	5.05	5.64	6.57	11.15	6.70
+Pet food	1.64	0.82	1.89	1.69	2.82	2.81	2.96	3.08	4.66	3.18
+Pet purchase, supplies, medicine	0.29	0.65	0.86	0.75	0.66	1.01	1.15	1.39	2.21	1.34
+Vet services	0.41	0.12	0.55	1.56	0.89	1.23	1.53	2.10	4.28	2.18
+Toys, games, arts and crafts, and tricycles	1.07	1.68	0.36	1.00	1.22	1.35	1.75	2.09	4.19	2.26
+Playground equipment	0.00	0.01	0.01	0.01	0.04	0.02	0.00	0.02	0.15	0.06
+Other entertainment supplies, equipment, and services	0.35	1.03	0.80	0.67	1.95	1.78	1.11	2.18	4.10	2.28
+Sports, recreation and exercise equipment	0.35	1.01	0.58	0.61	1.89	1.40	0.90	1.52	3.04	1.77
+Athletic gear, game tables, and exercise equipment	0.28	0.04	0.26	0.24	0.83	1.07	0.56	0.75	1.54	0.91
+Camping equipment	0.06	0.17	0.04	0.06	0.20	0.10	0.09	0.24	0.53	0.26
+Hunting and fishing equipment	0.00	0.09	0.13	0.31	0.81	0.20	0.25	0.38	0.87	0.50
+Global positioning system devices	0.00	0.70	0.16	0.00	0.05	0.03	0.00	0.15	0.10	0.10
+Photographic equipment, supplies and services	0.00	0.02	0.16	0.05	0.04	0.33	0.16	0.17	0.76	0.33
+Other photographic supplies	0.00	0.02	0.01	0.00	0.00	0.00	0.00	0.02	0.02	0.01
+Photographer fees	0.00	0.00	0.15	0.05	0.03	0.33	0.16	0.14	0.74	0.32
+Fireworks	0.00	0.00	0.04	0.00	0.00	0.01	0.02	0.01	0.06	0.03
+Souvenirs	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.40	0.14	0.10
+Visual goods	0.01	0.00	0.01	0.00	0.02	0.01	0.00	0.01	0.05	0.02
+Pinball, electronic video games	0.00	0.01	0.00	0.01	0.00	0.02	0.03	0.07	0.06	0.03
+Personal care products and services	3.91	5.29	3.62	5.10	5.98	6.65	8.07	9.64	16.18	9.61
+Personal care products	2.59	3.54	2.60	3.44	4.53	4.14	5.04	5.63	9.13	5.80
+Hair care products	0.54	0.55	0.60	0.79	0.73	0.69	0.93	1.32	1.96	1.19
+Nonelectric articles for the hair	0.07	0.05	0.04	0.08	0.10	0.12	0.11	0.10	0.23	0.14
+Oral hygiene products, articles	0.29	0.27	0.27	0.38	0.74	0.52	0.60	0.60	0.95	0.65
+Shaving needs	0.04	0.12	0.11	0.27	0.21	0.26	0.21	0.32	0.62	0.35
+Cosmetics, perfume, bath preparations	1.13	2.10	0.99	1.51	1.97	2.01	2.38	2.34	4.02	2.58
+Deodorants, feminine hygiene, miscellaneous personal	0.48	0.28	0.57	0.35	0.63	0.47	0.73	0.64	0.94	0.68
+Electric personal care appliances	0.04	0.17	0.01	0.06	0.15	0.07	0.09	0.30	0.40	0.21
+Personal care services	1.32	1.75	1.02	1.67	1.44	2.51	3.03	4.01	7.05	3.81
+Personal care service for females	0.69	0.96	0.54	0.86	0.78	1.40	1.57	2.10	3.74	2.02
+Personal care service for males	0.62	0.79	0.48	0.81	0.66	1.11	1.46	1.91	3.31	1.79
+Reading	0.31	0.00	0.00	0.00	0.00	0.09	0.00	0.00	0.00	0.02
+Newsletters	0.31	0.00	0.00	0.00	0.00	0.09	0.00	0.00	0.00	0.02
+Education	0.47	0.84	0.48	0.52	0.84	0.82	1.62	1.07	1.91	1.22
+School supplies, etc. - unspecified	0.47	0.84	0.48	0.52	0.84	0.82	1.62	1.07	1.91	1.22
+Tobacco products and smoking supplies	0.16	0.10	0.02	0.13	0.03	0.06	0.14	0.08	0.05	0.07
+Smoking accessories	0.16	0.10	0.02	0.13	0.03	0.06	0.14	0.08	0.05	0.07
+Miscellaneous	1.08	0.84	0.77	1.04	0.80	1.79	6.58	5.87	4.26	3.34
+Miscellaneous fees	0.00	0.00	0.00	0.05	0.03	0.00	0.00	0.05	0.13	0.05
+Lotteries and pari-mutuel losses	0.94	0.57	0.59	0.62	0.63	0.77	0.52	4.74	1.49	1.51
+Miscellaneous personal services	0.13	0.27	0.18	0.37	0.15	1.02	6.06	1.08	2.64	1.77
+Money income before taxes	3111.05	7654.02	12330.17	17181.00	24406.04	34469.56	44802.54	59557.75	131128.73	62788.00
+Wages and salaries	2960.26	2369.22	3678.18	7236.09	13167.23	22624.22	33138.71	46856.66	111320.98	49444.68
+Self-employment income	-2166.19	-8.32	-194.30	-170.88	424.16	664.42	1011.41	1807.09	6480.16	2386.53
+Net business income	-1982.82	21.23	-154.06	-136.62	428.51	677.48	863.54	1671.33	6113.90	2253.33
+Net farm income	-183.37	-29.55	-40.24	-34.26	-4.35	-13.06	147.87	135.76	366.26	133.21
+Social Security, private and government retirement	871.44	2649.12	6314.39	7298.87	8695.90	8567.24	7939.16	7602.66	7957.14	7479.23
+Social Security and railroad retirement income	721.49	2502.88	5755.84	6565.29	6974.58	5912.97	5060.90	4199.54	2794.43	4489.35
+Pensions and annuities	149.95	146.25	558.56	733.58	1721.32	2654.27	2878.27	3403.12	5162.71	2989.88
+Interest, dividends, rental income, other property income	213.19	150.73	150.59	276.54	368.49	720.31	960.96	1553.42	3442.79	1548.60
+Interest	69.64	157.96	81.18	103.35	187.32	362.76	547.23	679.88	1688.52	757.61
+Dividends, royalties, estates, trusts	82.74	13.38	17.36	129.26	141.90	245.44	290.72	698.53	1413.82	623.35
+Roomer and boarder income	58.69	-40.43	37.24	30.19	17.29	61.66	94.96	120.17	251.36	118.14
+Other rental income	2.12	19.82	14.82	13.74	21.97	50.45	28.05	54.84	89.10	49.50
+Unemployment and workers' compensation, veterans'	111.62	272.30	326.33	825.26	586.79	704.52	778.33	877.72	822.32	705.66
+Unemployment compensation	107.64	252.60	316.12	680.51	520.60	641.54	741.96	623.61	515.75	543.98
+Workers' compensation and veterans' benefits	3.98	19.70	10.20	144.75	66.19	62.99	36.37	254.11	306.57	161.68
+Public assistance, supplemental security income, food	651.89	1458.98	1362.79	1140.66	791.15	548.58	496.85	362.47	237.29	585.81
+Supplemental security income	178.95	747.79	632.05	404.53	362.43	195.34	255.79	263.81	179.87	293.54
+Public assistance	9.09	85.92	42.60	108.74	38.98	38.13	15.08	5.73	4.79	26.88
+Food stamps	463.85	625.27	688.14	627.39	389.73	315.12	225.98	92.93	52.63	265.39
+Regular contributions for support	354.86	561.41	571.25	431.74	346.49	476.19	375.77	400.22	590.85	476.87
+Child support payments	150.57	58.48	145.46	142.96	88.70	150.53	219.17	119.48	168.16	146.01
+Other regular contributions including alimony	204.28	502.93	425.79	288.78	257.79	325.66	156.61	280.73	422.69	330.86
+Other income	113.98	200.59	120.93	142.71	25.85	164.07	101.33	97.53	277.21	160.61
+Meals as pay	0.03	1.00	0.26	0.54	0.87	1.18	8.35	0.52	1.12	1.61
+Rent as pay	3.33	16.07	2.30	1.22	6.91	2.83	0.68	0.27	1.79	2.83
+Other income	110.62	183.52	118.38	140.95	18.07	160.06	92.30	96.75	274.29	156.18
+Personal taxes	-128.59	-187.89	-219.70	-263.01	-164.98	-110.99	-191.79	1003.95	4427.37	1402.80
+Federal income taxes	-216.37	-216.04	-294.67	-301.69	-319.94	-305.87	-409.41	528.13	3116.23	856.86
+Federal income tax deducted	38.20	35.64	74.44	118.68	296.91	635.47	808.52	1435.51	3709.56	1552.60
+Additional federal income tax paid	126.32	21.85	28.40	89.66	70.11	106.00	110.71	224.12	934.00	362.80
+Federal income tax refunds	-380.90	-273.53	-397.51	-510.04	-686.96	-1047.33	-1328.64	-1131.49	-1527.33	-1058.54
+State and local income taxes	11.88	-16.20	6.30	-11.38	41.30	100.04	99.87	321.25	1017.63	384.31
+State and local income tax deducted	11.47	15.61	26.75	37.03	89.05	172.16	219.82	398.53	1006.55	424.74
+Additional state and local income tax paid	38.42	11.76	11.37	16.70	13.95	13.98	13.99	45.29	244.02	89.41
+State and local income tax refunds	-38.01	-43.57	-31.82	-65.11	-61.71	-86.10	-133.94	-122.57	-232.94	-129.85
+Other taxes	75.90	44.35	68.67	50.06	113.66	94.84	117.75	154.57	293.51	161.63
+Personal property taxes	13.46	12.16	19.34	25.89	43.75	33.69	36.78	48.19	83.40	49.59
+Other taxes	62.44	35.05	50.42	24.16	70.00	61.38	81.09	109.08	214.57	114.05
+Other tax refunds	0.00	-2.86	-1.09	0.00	-0.08	-0.23	-0.13	-2.69	-4.46	-2.00
+Income after taxes	3125.80	7976.57	12691.33	17576.13	24773.38	34729.29	45581.01	59101.74	125891.80	61342.80
+Meals as pay	0.03	1.00	0.26	0.54	0.87	1.18	8.35	0.52	1.12	1.61
+Rent as pay	3.33	16.07	2.30	1.22	6.91	2.83	0.68	0.27	1.79	2.83
+Income after taxes	3122.43	7959.51	12688.77	17574.37	24765.61	34725.27	45571.98	59100.95	125888.89	61338.36

@@ -1,0 +1,1055 @@
+458    /***************************************************************************/
+459    /* PROGRAM NAME:  CEX INTERVIEW SURVEY SAMPLE PROGRAM (SAS)                */
+460    /* LOCATION: D:\PROGRAMS                                                   */
+461    /* FUNCTION: CREATE AN INTERVIEW SURVEY EXPENDITURE TABLE BY INCOME CLASS  */
+462    /*           USING MICRODATA FROM THE BUREAU OF LABOR STATISTIC'S CONSUMER */
+463    /*           EXPENDITURE SURVEY.                                           */
+464    /*                                                                         */
+465    /* WRITTEN BY:  ERIC KEIL                                                  */
+466    /* MODIFICATIONS:                                                          */
+467    /* DATE-      MODIFIED BY-      REASON-                                    */
+468    /* -----      ------------      -------                                    */
+469    /* 03/21/02   ERIC KEIL         IMPROVE EFFICIENCY                         */
+470    /* 10/22/03   ERIC KEIL         UPDATE FOR 2002 DATA                       */
+471    /* 11/20/03   ERIC KEIL         INCLUDE ROUTINE TO AGGREGATE EASIER        */
+472    /* 02/14/08   LAURA PASZKIEWICZ UPDATED TO ACCOUNT FOR ZIPPED FILES ON CD  */
+473    /*                                                                         */
+474    /*  FOR SAS VERSION 8 OR HIGHER                                            */
+475    /*                                                                         */
+476    /***************************************************************************/
+477
+478  /*Enter Data Year*/
+479  %LET YEAR = 2006;
+480  /*Enter location of the unzipped microdata file*/
+481  /*Be sure to keep the same file structure as on the CD*/
+482  %LET DRIVE =\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD;
+483
+484
+485
+486
+487    /***************************************************************************/
+488    /* STEP1: READ IN THE STUB PARAMETER FILE AND CREATE FORMATS               */
+489    /* ----------------------------------------------------------------------- */
+490    /* 1 CONVERTS THE STUB PARAMETER FILE INTO A LABEL FILE FOR OUTPUT         */
+491    /* 2 CONVERTS THE STUB PARAMETER FILE INTO AN EXPENDITURE AGGREGATION FILE */
+492    /* 3 CREATES FORMATS FOR USE IN OTHER PROCEDURES                           */
+493    /***************************************************************************/
+494
+495
+496  %LET YR1 = %SUBSTR(&YEAR,3,2);
+497  %LET YR2 = %SUBSTR(%EVAL(&YEAR+1),3,2);
+498
+499  DATA STUBFILE (KEEP= COUNT TYPE LEVEL TITLE UCC SURVEY GROUP LINE);
+500    INFILE "P:\Phase 4 Production (BIA)\Microdata\2006 Processing\Sample Programs\ISTUB&YEAR..TXT"
+501    PAD MISSOVER;
+502    INPUT @1 TYPE $1. @ 4 LEVEL $1. @7 TITLE $60. @70 UCC $6.
+503          @80 SURVEY $1. @86 GROUP $7.;
+504    IF (TYPE = '1');
+505    IF GROUP IN ('CUCHARS' 'FOOD' 'EXPEND' 'INCOME');
+506    IF SURVEY = 'T' THEN DELETE;
+507
+508      RETAIN COUNT 9999;
+509      COUNT + 1;
+510      LINE = PUT(COUNT, $5.)||LEVEL ;
+WARNING: Variable COUNT has already been defined as numeric.
+511      /* READS IN THE STUB PARAMETER FILE AND CREATES LINE NUMBERS FOR UCCS */
+512      /* A UNIQUE LINE NUMBER IS ASSIGNED TO EACH EXPENDITURE LINE ITEM     */
+513  RUN;
+
+NOTE: The infile "P:\Phase 4 Production (BIA)\Microdata\2006 Processing\Sample Programs\ISTUB2006.TXT" is:
+      File Name=P:\Phase 4 Production (BIA)\Microdata\2006 Processing\Sample Programs\ISTUB2006.TXT,
+      RECFM=V,LRECL=256
+
+NOTE: 1267 records were read from the infile "P:\Phase 4 Production (BIA)\Microdata\2006 Processing\Sample Programs\ISTUB2006.TXT".
+      The minimum record length was 0.
+      The maximum record length was 105.
+NOTE: The data set WORK.STUBFILE has 723 observations and 8 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.86 seconds
+      cpu time            0.01 seconds
+
+
+514
+515
+516  DATA AGGFMT1 (KEEP= UCC LINE LINE1-LINE10);
+517    SET STUBFILE;
+518    LENGTH LINE1-LINE10 $6.;
+519      ARRAY LINES(9) LINE1-LINE9;
+520        IF (UCC > 'A') THEN
+521          LINES(SUBSTR(LINE,6,1)) = LINE;
+522        RETAIN LINE1-LINE9;
+523        IF (UCC < 'A')  THEN
+524          LINE10 = LINE;
+525    IF (LINE10);
+526    /* MAPS LINE NUMBERS TO UCCS */
+527  RUN;
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      521:15   525:7
+NOTE: There were 723 observations read from the data set WORK.STUBFILE.
+NOTE: The data set WORK.AGGFMT1 has 590 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.23 seconds
+      cpu time            0.00 seconds
+
+
+528
+529
+530  PROC SORT DATA= AGGFMT1 (RENAME=(LINE= COMPARE));
+531    BY UCC;
+532  RUN;
+
+NOTE: There were 590 observations read from the data set WORK.AGGFMT1.
+NOTE: The data set WORK.AGGFMT1 has 590 observations and 12 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.21 seconds
+      cpu time            0.00 seconds
+
+
+533
+534
+535  PROC TRANSPOSE DATA= AGGFMT1 OUT= AGGFMT2 (RENAME=(COL1= LINE));
+536    BY UCC COMPARE;
+537    VAR LINE1-LINE10;
+538  RUN;
+
+NOTE: There were 590 observations read from the data set WORK.AGGFMT1.
+NOTE: The data set WORK.AGGFMT2 has 5900 observations and 4 variables.
+NOTE: PROCEDURE TRANSPOSE used (Total process time):
+      real time           0.29 seconds
+      cpu time            0.01 seconds
+
+
+539
+540
+541  DATA AGGFMT (KEEP= UCC LINE);
+542    SET AGGFMT2;
+543      IF LINE;
+544      IF SUBSTR(COMPARE,6,1) > SUBSTR(LINE,6,1) OR COMPARE=LINE;
+545      /* AGGREGATION FILE. EXTRANEOUS MAPPINGS ARE DELETED            */
+546      /* PROC SQL WILL AGGANGE LINE#/UCC PAIRS FOR USE IN PROC FORMAT */
+547  RUN;
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      543:8
+NOTE: There were 5900 observations read from the data set WORK.AGGFMT2.
+NOTE: The data set WORK.AGGFMT has 2784 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.01 seconds
+
+
+548
+549
+550  PROC SQL NOPRINT;
+551    SELECT UCC, LINE, COUNT(*)
+552    INTO  :UCCS SEPARATED BY " ",
+553          :LINES SEPARATED BY " ",
+554          :CNT
+555    FROM AGGFMT;
+NOTE: The query requires remerging summary statistics back with the original data.
+556    QUIT;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.37 seconds
+      cpu time            0.04 seconds
+
+
+557  RUN;
+558
+559
+560  %MACRO MAPPING;
+561    %DO  I = 1  %TO  &CNT;
+562      "%SCAN(&UCCS,&I,%STR( ))" = "%SCAN(&LINES,&I,%STR( ))"
+563    %END;
+564  %MEND MAPPING;
+565
+566
+567  DATA LBLFMT (RENAME=(LINE= START TITLE= LABEL));
+568    SET STUBFILE (KEEP= LINE TITLE);
+569    RETAIN FMTNAME 'LBLFMT' TYPE 'C';
+570    /* LABEL FILE. LINE NUMBERS ARE ASSIGNED A TEXT LABEL */
+571    /* DATASET CONSTRUCTED TO BE READ INTO A PROC FORMAT  */
+572  RUN;
+
+NOTE: There were 723 observations read from the data set WORK.STUBFILE.
+NOTE: The data set WORK.LBLFMT has 723 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.00 seconds
+
+
+573
+574
+575  PROC FORMAT;
+576
+577    VALUE $AGGFMT (MULTILABEL)
+578      %MAPPING
+579      OTHER= 'OTHER';
+NOTE: Format $AGGFMT is already on the library.
+NOTE: Format $AGGFMT has been output.
+580      /* CREATE AGGREGATION FORMAT */
+581
+582
+583    VALUE $INC (MULTILABEL)
+584      '01' = '01'
+585      '01' = '10'
+586      '02' = '02'
+587      '02' = '10'
+588      '03' = '03'
+589      '03' = '10'
+590      '04' = '04'
+591      '04' = '10'
+592      '05' = '05'
+593      '05' = '10'
+594      '06' = '06'
+595      '06' = '10'
+596      '07' = '07'
+597      '07' = '10'
+598      '08' = '08'
+599      '08' = '10'
+600      '09' = '09'
+601      '09' = '10';
+NOTE: Format $INC is already on the library.
+NOTE: Format $INC has been output.
+602      /* CREATE INCOME CLASS FORMAT */
+603  RUN;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           53.65 seconds
+      cpu time            24.75 seconds
+
+
+604
+605
+606  PROC FORMAT LIBRARY= WORK  CNTLIN= LBLFMT;
+NOTE: Format $LBLFMT is already on the library.
+NOTE: Format $LBLFMT has been output.
+607    /* CREATE LABEL FILE FORMATS */
+608  RUN;
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.60 seconds
+      cpu time            0.01 seconds
+
+NOTE: There were 723 observations read from the data set WORK.LBLFMT.
+
+609
+610
+611    /***************************************************************************/
+612    /* STEP2: READ IN ALL NEEDED DATA FROM THE CD-ROM                          */
+613    /* ----------------------------------------------------------------------- */
+614    /* 1 READ IN THE INTERVIEW FMLY FILES & CREATE THE MO_SCOPE VARIABLE       */
+615    /* 2 READ IN THE INTERVIEW MTAB AND ITAB FILES                             */
+616    /* 3 MERGE FMLY AND EXPENDITURE FILES TO DERIVE WEIGHTED EXPENDITURES      */
+617    /***************************************************************************/
+618
+619
+620
+621  %MACRO READFMLI (FILE=, QTR=);
+622
+623  DATA FMLYI&QTR. (KEEP = NEWID SOURCE INCLASS WTREP01-WTREP44 FINLWT21 REPWT1-REPWT45);
+624      INFILE &FILE END=LAST LS=3326;
+625      DO WHILE (LAST = 0);
+626        INPUT @1 NEWID 8.          @663 QINTRVMO $2.    @331 FINLWT21 11.3
+627              @841  WTREP01  11.3  @852  WTREP02  11.3  @863  WTREP03  11.3
+628              @874  WTREP04  11.3  @885  WTREP05  11.3  @896  WTREP06  11.3
+629              @907  WTREP07  11.3  @918  WTREP08  11.3  @929  WTREP09  11.3
+630              @940  WTREP10  11.3  @951  WTREP11  11.3  @962  WTREP12  11.3
+631              @973  WTREP13  11.3  @984  WTREP14  11.3  @995  WTREP15  11.3
+632              @1006 WTREP16  11.3  @1017 WTREP17  11.3  @1028 WTREP18  11.3
+633              @1039 WTREP19  11.3  @1050 WTREP20  11.3  @1061 WTREP21  11.3
+634              @1072 WTREP22  11.3  @1083 WTREP23  11.3  @1094 WTREP24  11.3
+635              @1105 WTREP25  11.3  @1116 WTREP26  11.3  @1127 WTREP27  11.3
+636              @1138 WTREP28  11.3  @1149 WTREP29  11.3  @1160 WTREP30  11.3
+637              @1171 WTREP31  11.3  @1182 WTREP32  11.3  @1193 WTREP33  11.3
+638              @1204 WTREP34  11.3  @1215 WTREP35  11.3  @1226 WTREP36  11.3
+639              @1237 WTREP37  11.3  @1248 WTREP38  11.3  @1259 WTREP39  11.3
+640              @1270 WTREP40  11.3  @1281 WTREP41  11.3  @1292 WTREP42  11.3
+641              @1303 WTREP43  11.3  @1314 WTREP44  11.3  @3324 INCLASS $2.;
+642      QUARTER = &QTR;
+643      IF QUARTER = 1 THEN
+644        MO_SCOPE = (QINTRVMO - 1);
+645      ELSE IF QUARTER = 5 THEN
+646        MO_SCOPE = (4 - QINTRVMO);
+647      ELSE
+648        MO_SCOPE = 3;
+649      /* CREATE MONTH IN SCOPE VARIABLE (MO_SCOPE) */
+650
+651      ARRAY REPS_A(45) WTREP01-WTREP44 FINLWT21;
+652      ARRAY REPS_B(45) REPWT1-REPWT45;
+653
+654        DO i = 1 TO 45;
+655        IF REPS_A(i) > 0 THEN
+656           REPS_B(i) = (REPS_A(i) * MO_SCOPE / 12);
+657           ELSE REPS_B(i) = 0;
+658        END;
+659        /* ADJUST WEIGHTS BY MO_SCOPE TO ACCOUNT FOR SAMPLE ROTATION */
+660
+661        OUTPUT;
+662      END;
+663  RUN;
+664
+665  %IF &QTR = 1 %THEN %DO;
+666      DATA FMLY;
+667          SET FMLYI&QTR;
+668      RUN;
+669  %END;
+670  %ELSE %DO;
+671  PROC APPEND BASE = FMLY DATA=FMLYI&QTR.; RUN;
+672  %END;
+673  %MEND;
+674
+675  %READFMLI (FILE="&DRIVE.\intrvw&YR1.\fmlyi&YR1.1x.txt",QTR=1);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      7:137   7:203
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi061x.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi061x.txt,
+      RECFM=V,LRECL=3326
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 7786 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi061x.txt".
+      The minimum record length was 3326.
+      The maximum record length was 3326.
+      One or more lines were truncated.
+NOTE: The data set WORK.FMLYI1 has 7786 observations and 92 variables.
+NOTE: DATA statement used (Total process time):
+      real time           10.21 seconds
+      cpu time            0.81 seconds
+
+
+
+NOTE: There were 7786 observations read from the data set WORK.FMLYI1.
+NOTE: The data set WORK.FMLY has 7786 observations and 92 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.18 seconds
+      cpu time            0.06 seconds
+
+
+676  %READFMLI (FILE="&DRIVE.\intrvw&YR1.\fmlyi&YR1.2.txt" ,QTR=2);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      7:137   7:203
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi062.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi062.txt,
+      RECFM=V,LRECL=3326
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 7009 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi062.txt".
+      The minimum record length was 3326.
+      The maximum record length was 3326.
+      One or more lines were truncated.
+NOTE: The data set WORK.FMLYI2 has 7009 observations and 92 variables.
+NOTE: DATA statement used (Total process time):
+      real time           5.28 seconds
+      cpu time            0.54 seconds
+
+
+
+NOTE: Appending WORK.FMLYI2 to WORK.FMLY.
+NOTE: There were 7009 observations read from the data set WORK.FMLYI2.
+NOTE: 7009 observations added.
+NOTE: The data set WORK.FMLY has 14795 observations and 92 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.25 seconds
+      cpu time            0.03 seconds
+
+
+677  %READFMLI (FILE="&DRIVE.\intrvw&YR1.\fmlyi&YR1.3.txt",QTR=3);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      7:137   7:203
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi063.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi063.txt,
+      RECFM=V,LRECL=3326
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 6988 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi063.txt".
+      The minimum record length was 3326.
+      The maximum record length was 3326.
+      One or more lines were truncated.
+NOTE: The data set WORK.FMLYI3 has 6988 observations and 92 variables.
+NOTE: DATA statement used (Total process time):
+      real time           5.15 seconds
+      cpu time            0.71 seconds
+
+
+
+NOTE: Appending WORK.FMLYI3 to WORK.FMLY.
+NOTE: There were 6988 observations read from the data set WORK.FMLYI3.
+NOTE: 6988 observations added.
+NOTE: The data set WORK.FMLY has 21783 observations and 92 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.06 seconds
+
+
+678  %READFMLI (FILE="&DRIVE.\intrvw&YR1.\fmlyi&YR1.4.txt" ,QTR=4);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      7:137   7:203
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi064.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi064.txt,
+      RECFM=V,LRECL=3326
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 7084 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi064.txt".
+      The minimum record length was 3326.
+      The maximum record length was 3326.
+      One or more lines were truncated.
+NOTE: The data set WORK.FMLYI4 has 7084 observations and 92 variables.
+NOTE: DATA statement used (Total process time):
+      real time           5.25 seconds
+      cpu time            0.84 seconds
+
+
+
+NOTE: Appending WORK.FMLYI4 to WORK.FMLY.
+NOTE: There were 7084 observations read from the data set WORK.FMLYI4.
+NOTE: 7084 observations added.
+NOTE: The data set WORK.FMLY has 28867 observations and 92 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.04 seconds
+
+
+679  %READFMLI (FILE="&DRIVE.\intrvw&YR1.\fmlyi&YR2.1.txt",QTR=5);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      7:137   7:203
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi071.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi071.txt,
+      RECFM=V,LRECL=3326
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 6965 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\fmlyi071.txt".
+      The minimum record length was 3326.
+      The maximum record length was 3326.
+      One or more lines were truncated.
+NOTE: The data set WORK.FMLYI5 has 6965 observations and 92 variables.
+NOTE: DATA statement used (Total process time):
+      real time           5.21 seconds
+      cpu time            0.78 seconds
+
+
+
+NOTE: Appending WORK.FMLYI5 to WORK.FMLY.
+NOTE: There were 6965 observations read from the data set WORK.FMLYI5.
+NOTE: 6965 observations added.
+NOTE: The data set WORK.FMLY has 35832 observations and 92 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.04 seconds
+
+
+680  RUN;
+681
+682  PROC SORT DATA=FMLY;
+683    BY NEWID;
+684  RUN;
+
+NOTE: There were 35832 observations read from the data set WORK.FMLY.
+NOTE: The data set WORK.FMLY has 35832 observations and 92 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           1.82 seconds
+      cpu time            0.32 seconds
+
+
+685
+686
+687
+688  %MACRO READEXP (FILE=, QTR=, TYPE=);
+689  DATA IEXPEND&QTR.&TYPE. (KEEP=NEWID UCC REFYR COST SOURCE);
+690    INFILE &FILE  END=LAST LRECL=35;
+691
+692    %IF &TYPE = M  %THEN %DO;
+693      DO WHILE (LAST = 0);
+694        INPUT @1 NEWID 8.  @9 UCC $6.  @15 COST 12.4  @32 REFYR $4.  @29 PUBFLAG $1.;
+695          IF UCC = '710110' THEN
+696              COST = (COST * 4);
+697        IF REFYR = &YEAR THEN OUTPUT;
+698      END;
+699    %END;
+700    %ELSE %IF &TYPE = I  %THEN %DO;
+701      DO WHILE (LAST = 0);
+702        INPUT @1 NEWID 8.  @15 UCC $6.  @22 COST 12.4  @11 REFYR $4.  @21 PUBFLAG $1.;
+703        IF REFYR = &YEAR THEN OUTPUT;
+704      END;
+705    %END;
+706    /* READ IN MTAB AND ITAB EXPENDITURE AND INCOME DATA */
+707    /* ADJUST UCC 710110 TO ANNUALIZE     */
+708  %IF &QTR = 1 AND &TYPE = M %THEN %DO;
+709      DATA EXPEND;
+710          SET IEXPEND&QTR.&TYPE.;
+711      RUN;
+712  %END;
+713  %ELSE %DO;
+714  PROC APPEND BASE = EXPEND DATA=IEXPEND&QTR.&TYPE.; RUN;
+715  %END;
+716  %MEND;
+717  %READEXP (FILE="&DRIVE.\intrvw&YR1.\mtabi&YR1.1x.txt", QTR=1, TYPE = M);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      3:182
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi061x.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi061x.txt,
+      RECFM=V,LRECL=35
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 664349 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi061x.txt".
+      The minimum record length was 35.
+      The maximum record length was 35.
+NOTE: The data set WORK.IEXPEND1M has 218318 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3.14 seconds
+      cpu time            1.06 seconds
+
+
+
+NOTE: There were 218318 observations read from the data set WORK.IEXPEND1M.
+NOTE: The data set WORK.EXPEND has 218318 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.59 seconds
+      cpu time            0.20 seconds
+
+
+718  %READEXP (FILE="&DRIVE.\intrvw&YR1.\mtabi&YR1.2.txt" , QTR=2, TYPE = M);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      3:182
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi062.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi062.txt,
+      RECFM=V,LRECL=35
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 566693 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi062.txt".
+      The minimum record length was 35.
+      The maximum record length was 35.
+NOTE: The data set WORK.IEXPEND2M has 566693 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2.64 seconds
+      cpu time            1.15 seconds
+
+
+
+NOTE: Appending WORK.IEXPEND2M to WORK.EXPEND.
+NOTE: There were 566693 observations read from the data set WORK.IEXPEND2M.
+NOTE: 566693 observations added.
+NOTE: The data set WORK.EXPEND has 785011 observations and 4 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.35 seconds
+      cpu time            0.28 seconds
+
+
+719  %READEXP (FILE="&DRIVE.\intrvw&YR1.\mtabi&YR1.3.txt", QTR=3, TYPE = M);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      3:182
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi063.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi063.txt,
+      RECFM=V,LRECL=35
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 578124 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi063.txt".
+      The minimum record length was 35.
+      The maximum record length was 35.
+NOTE: The data set WORK.IEXPEND3M has 578124 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2.60 seconds
+      cpu time            0.96 seconds
+
+
+
+NOTE: Appending WORK.IEXPEND3M to WORK.EXPEND.
+NOTE: There were 578124 observations read from the data set WORK.IEXPEND3M.
+NOTE: 578124 observations added.
+NOTE: The data set WORK.EXPEND has 1363135 observations and 4 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.40 seconds
+      cpu time            0.26 seconds
+
+
+720  %READEXP (FILE="&DRIVE.\intrvw&YR1.\mtabi&YR1.4.txt", QTR=4, TYPE = M);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      3:182
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi064.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi064.txt,
+      RECFM=V,LRECL=35
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 575481 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi064.txt".
+      The minimum record length was 35.
+      The maximum record length was 35.
+NOTE: The data set WORK.IEXPEND4M has 575481 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2.60 seconds
+      cpu time            1.15 seconds
+
+
+
+NOTE: Appending WORK.IEXPEND4M to WORK.EXPEND.
+NOTE: There were 575481 observations read from the data set WORK.IEXPEND4M.
+NOTE: 575481 observations added.
+NOTE: The data set WORK.EXPEND has 1938616 observations and 4 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.31 seconds
+      cpu time            0.26 seconds
+
+
+721  %READEXP (FILE="&DRIVE.\intrvw&YR1.\mtabi&YR2.1.txt", QTR=5, TYPE = M);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      3:182
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi071.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi071.txt,
+      RECFM=V,LRECL=35
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 583956 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\mtabi071.txt".
+      The minimum record length was 35.
+      The maximum record length was 35.
+NOTE: The data set WORK.IEXPEND5M has 392566 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2.70 seconds
+      cpu time            1.09 seconds
+
+
+
+NOTE: Appending WORK.IEXPEND5M to WORK.EXPEND.
+NOTE: There were 392566 observations read from the data set WORK.IEXPEND5M.
+NOTE: 392566 observations added.
+NOTE: The data set WORK.EXPEND has 2331182 observations and 4 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.23 seconds
+      cpu time            0.20 seconds
+
+
+722  %READEXP (FILE="&DRIVE.\intrvw&YR1.\itabi&YR1.1x.txt", QTR=1, TYPE = I);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      3:121
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi061x.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi061x.txt,
+      RECFM=V,LRECL=35
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 438150 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi061x.txt".
+      The minimum record length was 34.
+      The maximum record length was 34.
+NOTE: The data set WORK.IEXPEND1I has 147027 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2.01 seconds
+      cpu time            0.82 seconds
+
+
+
+NOTE: Appending WORK.IEXPEND1I to WORK.EXPEND.
+NOTE: There were 147027 observations read from the data set WORK.IEXPEND1I.
+NOTE: 147027 observations added.
+NOTE: The data set WORK.EXPEND has 2478209 observations and 4 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.06 seconds
+
+
+723  %READEXP (FILE="&DRIVE.\intrvw&YR1.\itabi&YR1.2.txt" , QTR=2, TYPE = I);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      3:121
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi062.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi062.txt,
+      RECFM=V,LRECL=35
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 396375 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi062.txt".
+      The minimum record length was 34.
+      The maximum record length was 34.
+NOTE: The data set WORK.IEXPEND2I has 396375 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           1.89 seconds
+      cpu time            1.20 seconds
+
+
+
+NOTE: Appending WORK.IEXPEND2I to WORK.EXPEND.
+NOTE: There were 396375 observations read from the data set WORK.IEXPEND2I.
+NOTE: 396375 observations added.
+NOTE: The data set WORK.EXPEND has 2874584 observations and 4 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.20 seconds
+      cpu time            0.20 seconds
+
+
+724  %READEXP (FILE="&DRIVE.\intrvw&YR1.\itabi&YR1.3.txt", QTR=3, TYPE = I);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      3:121
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi063.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi063.txt,
+      RECFM=V,LRECL=35
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 394824 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi063.txt".
+      The minimum record length was 34.
+      The maximum record length was 34.
+NOTE: The data set WORK.IEXPEND3I has 394824 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2.00 seconds
+      cpu time            1.18 seconds
+
+
+
+NOTE: Appending WORK.IEXPEND3I to WORK.EXPEND.
+NOTE: There were 394824 observations read from the data set WORK.IEXPEND3I.
+NOTE: 394824 observations added.
+NOTE: The data set WORK.EXPEND has 3269408 observations and 4 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           1.29 seconds
+      cpu time            0.18 seconds
+
+
+725  %READEXP (FILE="&DRIVE.\intrvw&YR1.\itabi&YR1.4.txt", QTR=4, TYPE = I);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      3:121
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi064.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi064.txt,
+      RECFM=V,LRECL=35
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 397476 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi064.txt".
+      The minimum record length was 34.
+      The maximum record length was 34.
+NOTE: The data set WORK.IEXPEND4I has 397476 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           2.07 seconds
+      cpu time            1.14 seconds
+
+
+
+NOTE: Appending WORK.IEXPEND4I to WORK.EXPEND.
+NOTE: There were 397476 observations read from the data set WORK.IEXPEND4I.
+NOTE: 397476 observations added.
+NOTE: The data set WORK.EXPEND has 3666884 observations and 4 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.23 seconds
+      cpu time            0.20 seconds
+
+
+726  %READEXP (FILE="&DRIVE.\intrvw&YR1.\itabi&YR2.1.txt", QTR=5, TYPE = I);
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      3:121
+WARNING: The variable SOURCE in the DROP, KEEP, or RENAME list has never been referenced.
+NOTE: The infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi071.txt" is:
+      File Name=\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi071.txt,
+      RECFM=V,LRECL=35
+
+NOTE: DATA STEP stopped due to looping.
+NOTE: 389463 records were read from the infile "\\Ceis1\ods\Pubs\MicrodataTransfer\2006ASCIICD\intrvw06\itabi071.txt".
+      The minimum record length was 34.
+      The maximum record length was 34.
+NOTE: The data set WORK.IEXPEND5I has 258809 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           1.75 seconds
+      cpu time            0.82 seconds
+
+
+
+NOTE: Appending WORK.IEXPEND5I to WORK.EXPEND.
+NOTE: There were 258809 observations read from the data set WORK.IEXPEND5I.
+NOTE: 258809 observations added.
+NOTE: The data set WORK.EXPEND has 3925693 observations and 4 variables.
+NOTE: PROCEDURE APPEND used (Total process time):
+      real time           0.17 seconds
+      cpu time            0.15 seconds
+
+
+727
+728
+729  PROC SORT DATA=EXPEND;
+730    BY NEWID;
+731  RUN;
+
+NOTE: There were 3925693 observations read from the data set WORK.EXPEND.
+NOTE: The data set WORK.EXPEND has 3925693 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           2:18.17
+      cpu time            8.31 seconds
+
+
+732
+733
+734
+735  DATA PUBFILE (KEEP = NEWID INCLASS UCC RCOST1-RCOST45);
+736    MERGE FMLY   (IN = INFAM)
+737          EXPEND (IN = INEXP);
+738    BY NEWID;
+739    IF INEXP AND INFAM;
+740
+741    IF COST = .  THEN
+742       COST = 0;
+743
+744       ARRAY REPS_A(45) WTREP01-WTREP44 FINLWT21;
+745       ARRAY REPS_B(45) RCOST1-RCOST45;
+746
+747       DO i = 1 TO 45;
+748         IF REPS_A(i)> 0
+749           THEN REPS_B(i) = (REPS_A(i) * COST);
+750           ELSE REPS_B(i) = 0;
+751       END;
+752       /* MERGE FMLY FILE WEIGHTS AND CHARACTERISTICS WITH MTAB/ITAB COSTS */
+753       /* MULTIPLY COSTS BY WEIGHTS TO DERIVE WEIGHTED COSTS               */
+754  RUN;
+
+NOTE: There were 35832 observations read from the data set WORK.FMLY.
+NOTE: There were 3925693 observations read from the data set WORK.EXPEND.
+NOTE: The data set WORK.PUBFILE has 3925693 observations and 48 variables.
+NOTE: DATA statement used (Total process time):
+      real time           3:25.43
+      cpu time            26.54 seconds
+
+
+755
+756
+757    /***************************************************************************/
+758    /* STEP3: CALCULATE POPULATIONS                                            */
+759    /* ----------------------------------------------------------------------- */
+760    /* 1 SUM ALL 45 WEIGHT VARIABLES TO DERIVE REPLICATE POPULATIONS           */
+761    /* 2 FORMAT FOR CORRECT COLUMN CLASSIFICATIONS                             */
+762    /***************************************************************************/
+763
+764
+765  PROC SUMMARY NWAY DATA=FMLY;
+766    CLASS INCLASS / MLF;
+767    VAR REPWT1-REPWT45;
+768    FORMAT INCLASS $INC.;
+769    OUTPUT OUT = POP (DROP = _TYPE_ _FREQ_) SUM = RPOP1-RPOP45;
+770    /* SUMS WEIGHTS TO CREATE POPULATIONS PER REPLICATE */
+771    /* FORMATS TO CORRECT COLUMN CLASSIFICATIONS        */
+772  RUN;
+
+NOTE: There were 35832 observations read from the data set WORK.FMLY.
+NOTE: The data set WORK.POP has 10 observations and 46 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           3.65 seconds
+      cpu time            0.34 seconds
+
+
+773
+774
+775
+776    /***************************************************************************/
+777    /* STEP4: CALCULATE WEIGHTED AGGREGATE EXPENDITURES                        */
+778    /* ----------------------------------------------------------------------- */
+779    /* 1 SUM THE 45 REPLICATE WEIGHTED EXPENDITURES TO DERIVE AGGREGATES       */
+780    /* 2 FORMAT FOR CORRECT COLUMN CLASSIFICATIONS AND AGGREGATION SCHEME      */
+781    /***************************************************************************/
+782
+783
+784  PROC SUMMARY NWAY DATA=PUBFILE SUMSIZE=MAX COMPLETETYPES;
+785    CLASS UCC INCLASS / MLF;
+786    VAR RCOST1-RCOST45;
+787    FORMAT UCC $AGGFMT. INCLASS $INC.;
+788     OUTPUT OUT=AGG (DROP= _TYPE_ _FREQ_  RENAME=(UCC=LINE))
+789     SUM = RCOST1-RCOST45;
+790    /* SUMS WEIGHTED COSTS PER REPLICATE TO GET AGGREGATES */
+791    /* FORMATS INCOME TO CREATE COMPLETE REPORTING COLUMN  */
+792    /* FORMATS EXPENDITURES TO CORRECT AGGREGATION SCHEME  */
+793  RUN;
+
+NOTE: There were 3925693 observations read from the data set WORK.PUBFILE.
+NOTE: The data set WORK.AGG has 6780 observations and 47 variables.
+NOTE: PROCEDURE SUMMARY used (Total process time):
+      real time           7:17.52
+      cpu time            1:18.29
+
+
+794
+795
+796
+797    /***************************************************************************/
+798    /* STEP5: CALCULTATE MEAN EXPENDITURES                                     */
+799    /* ----------------------------------------------------------------------- */
+800    /* 1 READ IN POPULATIONS AND LOAD INTO MEMORY USING A 2 DIMENSIONAL ARRAY  */
+801    /*   POPULATIONS ARE ASSOCIATED BY INCLASS(i), AND REPLICATE(j)            */
+802    /* 2 READ IN AGGREGATE EXPENDITURES FROM AGG DATASET                       */
+803    /*   CALCULATE MEANS BY DIVIDING AGGREGATES BY CORRECT SOURCE POPULATIONS  */
+804    /* 4 CALCULATE STANDARD ERRORS USING REPLICATE FORMULA                     */
+805    /***************************************************************************/
+806
+807
+808  DATA TAB1 (KEEP = LINE MEAN SE);
+809
+810    /* READS IN POP DATASET. _TEMPORARY_ LOADS POPULATIONS INTO SYSTEM MEMORY  */
+811    ARRAY POP{01:10,45} _TEMPORARY_;
+812    IF _N_ = 1 THEN DO i = 1 TO 10;
+813      SET POP;
+814      ARRAY REPS(45) RPOP1-RPOP45;
+815        DO j = 1 TO 45;
+816          POP{INCLASS,j} = REPS(j);
+817        END;
+818      END;
+819
+820    /* READS IN AGG DATASET AND CALCULATES MEANS BY DIVIDING BY POPULATIONS  */
+821    SET AGG (KEEP = LINE INCLASS RCOST1-RCOST45);
+822      ARRAY AGGS(45) RCOST1-RCOST45;
+823      ARRAY AVGS(45) MEAN1-MEAN44 MEAN;
+824        DO k = 1 TO 45;
+825          IF AGGS(k) = . THEN AGGS(k) = 0;
+826          AVGS(k) = AGGS(k) / POP{INCLASS,k};
+827        END;
+828
+829    /* CALCULATES STANDARD ERRORS USING REPLICATE FORMULA  */
+830    ARRAY RMNS(44) MEAN1-MEAN44;
+831    ARRAY DIFF(44) DIFF1-DIFF44;
+832      DO n = 1 TO 44;
+833        DIFF(n) = (RMNS(n) - MEAN)**2;
+834      END;
+835    SE = SQRT((1/44)*SUM(OF DIFF(*)));
+836  RUN;
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      816:13   826:33
+NOTE: There were 10 observations read from the data set WORK.POP.
+NOTE: There were 6780 observations read from the data set WORK.AGG.
+NOTE: The data set WORK.TAB1 has 6780 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           1.54 seconds
+      cpu time            0.23 seconds
+
+
+837
+838
+839
+840    /***************************************************************************/
+841    /* STEP6: TABULATE EXPENDITURES                                            */
+842    /* ----------------------------------------------------------------------- */
+843    /* 1 ARRANGE DATA INTO TABULAR FORM                                        */
+844    /* 2 SET OUT INTERVIEW POPULATIONS FOR POPULATION LINE ITEM                */
+845    /* 3 INSERT POPULATION LINE INTO TABLE                                     */
+846    /* 4 INSERT ZERO EXPENDITURE LINE ITEMS INTO TABLE FOR COMPLETENESS        */
+847    /***************************************************************************/
+848
+849
+850  PROC TRANSPOSE DATA=TAB1 OUT=TAB2
+851    NAME = ESTIMATE PREFIX = INCLASS;
+852    BY LINE;
+853    VAR MEAN SE;
+854    /*ARRANGE DATA INTO TABULAR FORM */
+855  RUN;
+
+NOTE: There were 6780 observations read from the data set WORK.TAB1.
+NOTE: The data set WORK.TAB2 has 1356 observations and 12 variables.
+NOTE: PROCEDURE TRANSPOSE used (Total process time):
+      real time           0.34 seconds
+      cpu time            0.00 seconds
+
+
+856
+857
+858  PROC TRANSPOSE DATA=POP (KEEP = RPOP45) OUT=CUS
+859    NAME = LINE PREFIX = INCLASS;
+860    VAR RPOP45;
+861    /* SET ASIDE POPULATIONS FROM INTERVIEW */
+862  RUN;
+
+NOTE: There were 10 observations read from the data set WORK.POP.
+NOTE: The data set WORK.CUS has 1 observations and 11 variables.
+NOTE: PROCEDURE TRANSPOSE used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.01 seconds
+
+
+863
+864
+865  DATA TAB3;
+866    SET CUS TAB2;
+867    IF LINE = 'RPOP45' THEN DO;
+868      LINE = '100001';
+869      ESTIMATE = 'N';
+870      END;
+871    /* INSERT POPULATION LINE ITEM INTO TABLE AND ASSIGN LINE NUMBER */
+872  RUN;
+
+NOTE: There were 1 observations read from the data set WORK.CUS.
+NOTE: There were 1356 observations read from the data set WORK.TAB2.
+NOTE: The data set WORK.TAB3 has 1357 observations and 12 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.14 seconds
+      cpu time            0.01 seconds
+
+
+873
+874
+875  DATA TAB;
+876    MERGE TAB3 STUBFILE;
+877    BY LINE;
+878      IF LINE NE '100001' THEN DO;
+879        IF SURVEY = 'S' THEN DELETE;
+880      END;
+881      ARRAY CNTRL(10) INCLASS1-INCLASS10;
+882        DO i = 1 TO 10;
+883          IF CNTRL(i) = . THEN CNTRL(i) = 0;
+884          IF SUM(OF CNTRL(*)) = 0 THEN ESTIMATE = 'MEAN';
+885        END;
+886
+887      IF GROUP IN ('CUCHARS' 'INCOME') THEN DO;
+888        IF LAG(LINE) = LINE THEN DELETE;
+889      END;
+890    /* MERGE STUBFILE BACK INTO TABLE TO INSERT EXPENDITURE LINES */
+891    /* THAT HAD ZERO EXPENDITURES FOR THE YEAR                    */
+892  RUN;
+
+NOTE: There were 1357 observations read from the data set WORK.TAB3.
+NOTE: There were 723 observations read from the data set WORK.STUBFILE.
+NOTE: The data set WORK.TAB has 1316 observations and 20 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.25 seconds
+      cpu time            0.01 seconds
+
+
+893
+894
+895  PROC TABULATE DATA=TAB;
+896    CLASS LINE / GROUPINTERNAL ORDER=DATA;
+897    CLASS ESTIMATE;
+898    VAR INCLASS1-INCLASS10;
+899    FORMAT LINE $LBLFMT.;
+900
+901      TABLE (LINE * ESTIMATE), (INCLASS10 INCLASS1 INCLASS2 INCLASS3 INCLASS4
+902                                INCLASS5  INCLASS6 INCLASS7 INCLASS8 INCLASS9)
+903      *SUM='' / RTS=25;
+904      LABEL ESTIMATE=ESTIMATE LINE=LINE
+905            INCLASS1='LESS THAN $5,000'   INCLASS2='$5,000 TO $9,999'
+906            INCLASS3='$10,000 TO $14,999' INCLASS4='$15,000 TO $19,999'
+907            INCLASS5='$20,000 TO $29,999' INCLASS6='$30,000 TO $39,999'
+908            INCLASS7='$40,000 TO $49,999' INCLASS8='$50,000 TO $69,999'
+909            INCLASS9='$70,000 AND OVER'   INCLASS10='ALL CONSUMER UNITS';
+910      OPTIONS NODATE NOCENTER NONUMBER LS=167 PS=MAX;
+911      WHERE LINE NE 'OTHER';
+912      TITLE "INTERVIEW EXPENDITURES FOR &YEAR BY INCOME BEFORE TAXES";
+913  RUN;
+
+NOTE: There were 1314 observations read from the data set WORK.TAB.
+      WHERE LINE not = 'OTHER';
+NOTE: PROCEDURE TABULATE used (Total process time):
+      real time           1.57 seconds
+      cpu time            0.09 seconds
+
+

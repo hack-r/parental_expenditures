@@ -1,0 +1,150 @@
+TOTAL POPULATION
+
+Obs       TOTPOP
+
+ 1     124415858.09
+AGGREGATES
+
+Obs   TOTEX4      FOOD        FDHOME       FDAWAY       FDXMAP        FDMAP
+
+ 1  6.1476E12 920842334886 625679985205 295162349685 291331149291 3831200410.1
+
+Obs    ALCBEV       HOUS      SHELT       OWNDWE        MRTINT        PROPTX
+
+ 1  45297072644  1.9788E12  1.2314E12  753849676631  381562554962  228221415646
+
+Obs    MRPINS       RENDWE       RNTXRP       RNTAPY      OTHLOD       UTIL
+
+ 1  144065706008 396076886355 385551911577 10524974778 81452109662 453911643251
+
+Obs    NTLGAS      ELCTRC       ALLFUL      FULOIL      OTHFLS       TELEPH
+
+ 1  44651786612 172672669491 17021960095 10029745405 6992214689.8 154182216044
+
+Obs    WATRPS      HOUSOP       DOMSRV      DMSXCC      BBYDAY      OTHHEX
+
+ 1  65383011010 142575106328 84459324816 44469651935 39989672881 58115781513
+
+Obs    HOUSEQ       TEXTIL       FURNTR      FLRCVR       MAJAPP     SMLAPP
+
+ 1  150941738772 9032300520.9 48707221286 2018026441.7 24050225615 7159845785
+
+Obs    MISCEQ       APPAR       MENBOY      MENSIX      BOYFIF       WOMGRL
+
+ 1  59974119123 142550347633 34498105333 26669713027 7828392305.6 51987490591
+
+Obs    WOMSIX      GRLFIF       CHLDRN       FOOTWR      OTHAPL     TRANS
+
+ 1  42891331278 9096159313.2 6983159466.2 21506226422 27575365821 1.0943E12
+
+Obs    CARTKN       CARTKU       OTHVEH        GASMO       VEHFIN      MAINRP
+
+ 1  203867235772 188619720419 6836107796.1 342862924919 27772107365 90892936313
+
+Obs    VEHINS       PUBTRA      VRNTLO      TRNTRP      TRNOTH      HEALTH
+
+ 1  111377722981 68156829701 53941907000 56946405282 11210424420 418949706935
+
+Obs    HLTHIN       MEDSRV       PREDRG      MEDSUP      ENTERT       FEEADM
+
+ 1  256463538826 104236003734 45585722571 12664441804 284202641724 75886015143
+
+Obs    TVRDIO       OTHEQP      PETTOY      OTHENT      PERSCA       READ
+
+ 1  117379480640 90937145974 48194692582 42742453391 37841759605 13608546544
+
+Obs     EDUCA       TOBACC      MISCX4      CASHCO       PERINS       LIFINS
+
+ 1  143761195867 40938249414 96449176671 237950259718 692073609182 43870527356
+
+Obs    RETPEN
+
+ 1  648205978084
+ANNUAL AVERAGE EXPENDITURE
+
+
+
+    TOTAL POPULATION                                                124,415,858
+    Total Expenditures                                                   49,412
+      Food                                                                7,401
+        Food At Home                                                      5,029
+        Food Away From Home                                               2,372
+          Food away excluding meals as pay                                2,342
+          Meals as pay                                                       31
+        Alcoholic beverages                                                 364
+      Housing                                                            15,905
+        Shelter                                                           9,897
+          Owned dwellings                                                 6,059
+            Mortgage interest                                             3,067
+            Property taxes                                                1,834
+            Maintenance, repairs, insurance, and other expense            1,158
+          Rented dwellings                                                3,183
+            Rent excluding rent as pay                                    3,099
+            Rent as pay                                                      85
+          Other lodging                                                     655
+        Utilities, fuels and public services                              3,648
+          Natural gas                                                       359
+          Electricity                                                     1,388
+          Fuel oil and other fuel                                           137
+            Fuel oil                                                         81
+            Other fuels                                                      56
+          Telephone                                                       1,239
+          Water and other public services                                   526
+        Household operations                                              1,146
+          Domestic Services                                                 679
+            Domestic services excluding child care                          357
+            Babysitting and day care                                        321
+          Other household expenses                                          467
+        Housefurnishings and equipment                                    1,213
+          Household textiles                                                 73
+          Furniture                                                         391
+          Floor coverings                                                    16
+          Major appliances                                                  193
+          Small appliances and miscellaneous housewares                      58
+          Miscellaneous household equipment                                 482
+      Apparel and services                                                1,146
+        Men and boys                                                        277
+          Men, 16 and over                                                  214
+          Boys, 2 to 15                                                      63
+        Women and girls                                                     418
+          Women, 16 and over                                                345
+          Girls 2 to 15                                                      73
+        Children under 2                                                     56
+        Footwear                                                            173
+        Other apparel products and services                                 222
+      Transportation                                                      8,796
+        Cars and trucks, new                                              1,639
+        Cars and trucks, used                                             1,516
+        Other vehicles                                                       55
+        Gasoline and motor oil                                            2,756
+        Vehicle finance charges                                             223
+        Maintenance and repairs                                             731
+ANNUAL AVERAGE EXPENDITURE
+
+
+
+        Vehicle insurance                                                   895
+        Public transportation                                               548
+        Vehicle rental, licenses, and other charges                         434
+          Public transportation on trips                                    458
+          Local public transportation, excluding on trips                    90
+      Health care                                                         3,367
+        Health insurance                                                  2,061
+        Medical services                                                    838
+        Prescription drugs and medical supplies                             366
+        Medical supplies                                                    102
+      Entertainment                                                       2,284
+        Fees and admission                                                  610
+        Television, radios, and sound equipment                             943
+        Other equipment and services                                        731
+        Pets, toys, and playground equipment                                387
+        Other entertainment equipment and services                          344
+      Personal care                                                         304
+      Reading                                                               109
+      Education                                                           1,155
+      Tobacco and smoking supplies                                          329
+      Miscellaneous                                                         775
+      Cash contributions                                                  1,913
+      Personal insurance and pensions                                     5,563
+        Life and other personal insurance                                   353
+        Retirement, pensions, and social security                         5,210
